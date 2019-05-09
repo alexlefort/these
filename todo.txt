@@ -1,0 +1,30 @@
+10/05/2019
+
+Développements simulateur sous-marin standard :
+
+- boucle de simulation (10 min)
+- contrôleur cap générique (30 min)
+- contrôleur immersion générique 1 barre (30 min)
+- lien réglage contrôleur cap générique (control toolbox) (30 min)
+- lien réglage contrôleur immersion générique (control toolbox) (30 min)
+- outil d'affichage (40 min)
+- test simulateur avec simulateur de référence (2h)
+- ajout de filtrage dans les contrôleurs (1h)
+- convertisseur modèle feldman <-> aucher (2h)
+- convertisseur modèle fossen <-> aucher (2h)
+- construction suboff (2h)
+- modèle linéaire cap formel (systune <-> minibex) (30 min)
+- modèle linéaire immersion formel (systune <-> minibex) (30 min)
+- réglage contrôleur immersion (systune) (30 min)
+- réglage contrôleur cap (systune) (45 min)
+- réglage contrôleur immersion 1 barre (ibex) (30 min)
+- réglage contrôleur cap (ibex) (30 min)
+
+Stabilité Nyquist
+
+- Mettre au propre l'algorithme (matlab) (1h)
+- Test et comparaison avec routh (matlab) (1h)
+
+Dabbene-Kharitonov
+
+- Tester Dabbene (c++) (2h)
