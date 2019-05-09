@@ -1,12 +1,12 @@
-function y = sm_dynamics(y0,u,p,dt)
+function x = tbx_sm_dynamics(x,u,p,dt)
 
-    x0 = state2vect(y0);
+    x0 = state2vect(x);
     k1 = equations_modele(x0           , u, p);
     k2 = equations_modele(x0 + dt/2*k1 , u, p);
     k3 = equations_modele(x0 + dt/2*k2 , u, p);
     k4 = equations_modele(x0 + dt*k3   , u, p);
     x  = x0 + dt/6*(k1 + 2*k2 + 2*k3 + k4);
-    y  = vect2state(x);
+    x  = vect2state(x);
 
 
 function xpt = equations_modele(x,u,p)
@@ -69,7 +69,7 @@ FCouplageInertiel = [ p.Mu*(V*R-W*Q + p.Xg*(Q^2+R^2)-p.Yg*P*Q-p.Zg*P*R) ;...
 % Effort hydrodynamique
 Vs = sqrt(U^2+V^2+W^2) ;
 
-ured = U/Vs ;
+%ured = U/Vs ;
 vred = V/Vs ;
 wred = W/Vs ;
 pred = p.L*P/Vs ;
@@ -96,30 +96,14 @@ Js_etoile = Js*(1+p.Aj*sqrt((vred+p.XAR*rred)^2+(wred-p.XAR*qred)^2) + p.Bj*sqrt
 Vs_etoile = Js_etoile*NT1*p.D ;
 
 if (abs(Js_etoile) <= 1)
-    Teffred = NT1^2*p.D^4*interpolation(10,p.J,p.KV,Js_etoile)/(p.CRemp*p.A*p.L) ;
-    Qeffred = -NT1^2*p.D^5*interpolation(10,p.J,p.KQ,Js_etoile)/(p.CRemp*p.A*p.L) ;
+    Teffred = NT1^2*p.D^4*tbx_math_interpolation(10,p.J,p.KV,Js_etoile)/(p.CRemp*p.A*p.L) ;
+    Qeffred = -NT1^2*p.D^5*tbx_math_interpolation(10,p.J,p.KQ,Js_etoile)/(p.CRemp*p.A*p.L) ;
 else
-    Teffred = p.D^2*Vs_etoile^2*interpolation(10,p.unSurJ,p.CV,1/Js_etoile)/(p.CRemp*p.A*p.L)  ;
-    Qeffred = p.D^3*Vs_etoile^2*interpolation(10,p.unSurJ,p.CQ,1/Js_etoile)/(p.CRemp*p.A*p.L)  ;
+    Teffred = p.D^2*Vs_etoile^2*tbx_math_interpolation(10,p.unSurJ,p.CV,1/Js_etoile)/(p.CRemp*p.A*p.L)  ;
+    Qeffred = p.D^3*Vs_etoile^2*tbx_math_interpolation(10,p.unSurJ,p.CQ,1/Js_etoile)/(p.CRemp*p.A*p.L)  ;
 end
 
 FPropulsion = [Teffred 0 0 Qeffred 0 0 0 0 0 0 0 0 ]' ;
 
 % Equation d'evolution
-xpt_vect = inv(M)*(FHydroStatique + FCouplageInertiel + FHydrodynamique + FPropulsion) ;
-
-xpt.U      = xpt_vect(1)  ;
-xpt.V      = xpt_vect(2)  ;
-xpt.W      = xpt_vect(3)  ;
-xpt.P      = xpt_vect(4)  ;
-xpt.Q      = xpt_vect(5)  ;
-xpt.R      = xpt_vect(6)  ;
-xpt.X      = xpt_vect(7)  ;
-xpt.Y      = xpt_vect(8)  ;
-xpt.Z      = xpt_vect(9)  ;
-xpt.Phi    = xpt_vect(10) ;
-xpt.Theta  = xpt_vect(11) ;
-xpt.Psi    = xpt_vect(12) ;
-
-
-xpt = state2vect(xpt);
+xpt = M\(FHydroStatique + FCouplageInertiel + FHydrodynamique + FPropulsion) ;

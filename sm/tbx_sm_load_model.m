@@ -1,4 +1,4 @@
-function param = load_model(file)
+function param = tbx_sm_load_model(file)
 
 % unites
 deg=pi/180;
@@ -8,7 +8,7 @@ kt=1852/3600;
 %%hour=60*min;
 
 % modele de manoeuvrabilite
-param  = read_DYSCO_nav(file);
+param  = tbx_sm_read_nav(file);
 param.InertieEnG = false; % Les inerties DYSCO sont donnees au centre de carene
 
 % required for sfun_smc

@@ -1,4 +1,5 @@
-function xvect = vect2state(xstate)
+function xvect = tbx_sm_state_to_vect(xstate)
+
     xvect(1)  = xstate.U     ;
     xvect(2)  = xstate.V     ;
     xvect(3)  = xstate.W     ;

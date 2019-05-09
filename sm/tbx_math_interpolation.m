@@ -1,6 +1,5 @@
-function [out] = interpolation(p_n,p_xt,p_yt,p_x)
+function [out] = tbx_math_interpolation(p_n,p_xt,p_yt,p_x)
 
-y = 0;
 if( p_n == 0 )
     y=0.0;
 elseif (p_n == 1)

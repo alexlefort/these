@@ -1,4 +1,4 @@
-function torpedo_ = read_DYSCO_nav( filename_ )
+function torpedo_ = tbx_sm_read_nav( filename_ )
 %
 % READ A DYSCO .NAV MODEL DEFINITION FILE
 % FILL A STRUCTURE IN RETURN
