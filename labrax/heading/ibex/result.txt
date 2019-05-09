@@ -1,0 +1,7 @@
+time limit 600s. reached
+  best bound in: [0.00312335,1.48779] 
+ Relative precision obtained on objective function: 0.997901  [failed]  0.1 
+ Absolute precision obtained on objective function: 1.48467  [failed]  0.1 
+ best feasible point (-0.273278 ; -1.22648 ; -0.774466 ; -2.16047) 
+ cpu time used 600.004s. 
+ number of cells 230155 
