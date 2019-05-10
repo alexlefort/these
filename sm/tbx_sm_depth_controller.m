@@ -29,6 +29,6 @@ function [c, intern] = tbx_sm_depth_controller(state,mission,intern,p,dt)
     c.Beta1 = max(min(c.Beta1,p.sat_Beta),- p.sat_Beta);
     c.Beta1 = max(min(c.Beta1, intern.Beta + p.sat_Beta_d*dt), intern.Beta - p.sat_Beta_d*dt);
     intern.Beta = c.Beta1;
-    c.Beta2 = 0.01;
+    c.Beta2 = 0.0;
     
     

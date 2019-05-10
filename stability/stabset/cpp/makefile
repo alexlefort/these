@@ -1,11 +1,14 @@
 CXXFLAGS := $(shell pkg-config --cflags ibex) 
 LIBS	 := $(shell pkg-config --libs   ibex)
 
-CXXFLAGS := $(CXXFLAGS) -O3 -DNDEBUG -Wno-unused-variable -fopenmp -frounding-math -std=c++11 -I/usr/local/include/eigen -I/usr/local/libigl/include/igl
+CXXFLAGS := $(CXXFLAGS) -O3 -DNDEBUG -Wno-unused-variable -fopenmp -frounding-math -std=c++11 -I/home/alexandre/Eigen -I/home/alexandre/libigl/include/igl
 
-EXEC=test_dabbene test_kharitonov test_stability
+EXEC=test_dabbene test_kharitonov test_stability test_topology
 
 all: $(EXEC)
+
+test_topology: kharitonov.o test_topology.o
+	g++ -o $@ $^ $(CXXFLAGS) $(LIBS)
 
 test_stability: kharitonov.o dabbene.o test_stability.o
 	g++ -o $@ $^ $(CXXFLAGS) $(LIBS)
