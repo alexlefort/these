@@ -12,4 +12,5 @@ noise.Q      = 0.0010;
 noise.R      = 0.0010;
 noise.U      = 0.2265;
 noise.V      = 0.2268;
+noise.W      = 0.2268;
 noise.Z      = 0.06  ;

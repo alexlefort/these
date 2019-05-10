@@ -16,6 +16,7 @@ function p_ctrl = ctrl_imm_calculer_reglages(p)
     p_ctrl.gains_KPi    = zeros(r.nVs,1);
     p_ctrl.gains_KTheta = zeros(r.nVs,1);
     p_ctrl.gains_KQ     = zeros(r.nVs,1);
+    p_ctrl.gains_speeds = r.Vs_Vect';
     
     for ii = 1:r.nVs
     
@@ -66,6 +67,6 @@ function p_ctrl = ctrl_imm_calculer_reglages(p)
         sys.zthpiq  = zthpiq;
         sys.sm      = sys_pb;
 
-        simulation(sys,ctrl,200);
+        %%simulation(sys,ctrl,200);
         
     end

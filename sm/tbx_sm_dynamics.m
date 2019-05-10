@@ -1,12 +1,12 @@
 function x = tbx_sm_dynamics(x,u,p,dt)
 
-    x0 = state2vect(x);
-    k1 = equations_modele(x0           , u, p);
+    x0 = tbx_sm_state_to_vect(x);
+    k1 = equations_modele(x0, u, p);    
     k2 = equations_modele(x0 + dt/2*k1 , u, p);
     k3 = equations_modele(x0 + dt/2*k2 , u, p);
     k4 = equations_modele(x0 + dt*k3   , u, p);
     x  = x0 + dt/6*(k1 + 2*k2 + 2*k3 + k4);
-    x  = vect2state(x);
+    x  = tbx_sm_vect_to_state(x);
 
 
 function xpt = equations_modele(x,u,p)
@@ -16,7 +16,7 @@ function xpt = equations_modele(x,u,p)
 % u = [Alpha, Beta1, Beta2, NT1]'
 % p : structure avec les parametres fichiers .nav
 
-x = vect2state(x);
+x = tbx_sm_vect_to_state(x);
 
 U      = x.U     ;
 V      = x.V     ;
@@ -31,7 +31,7 @@ Psi    = x.Psi   ;
 Alpha = u.Alpha  ;
 Beta1 = u.Beta1  ;
 Beta2 = u.Beta2  ;
-NT1   = u.NT1    ;
+NT1   = u.Prop   ;
 
 % Matrice masses + masses ajoutees
 M = [          (p.Mu+p.Mu_1)                        0                  p.Mu_13                           0  (p.Mu*p.Zg-p.L*p.Nu_15)                  -p.Mu*p.Yg ;...

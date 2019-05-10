@@ -36,7 +36,7 @@ Volume         =  0.0286
 ! Xc : Abscisse du centre volume de forme, mesurée depuis l'avant du sous-marin (m)
 Xc             = 0.83
 ! Rq : Rayon de coque à la troncature arrière (m)
-Rq             = 0.008
+Rq             = 0.08
 ! Longueur pont : Longueur du pont (m)
 Longueur pont  = 0
 ! Vous pouvez choisir trois types de pont :

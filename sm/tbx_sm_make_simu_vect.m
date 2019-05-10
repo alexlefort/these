@@ -1,7 +1,7 @@
 function res = tbx_sm_make_simu_vect(T)
 
     n = length(T);
-    
+    res.T             = T;
     res.state.U       = zeros(n,1);
     res.state.V       = zeros(n,1);
     res.state.W       = zeros(n,1);
@@ -30,7 +30,7 @@ function res = tbx_sm_make_simu_vect(T)
     res.command.Beta2  = zeros(n,1);
     res.command.Prop   = zeros(n,1);
     
-    res.mission.ZCo    = zeros(n,1);
-    res.mission.PsiCo  = zeros(n,1);
-    res.mission.PropCo = zeros(n,1);
+    res.order.ZCo   = zeros(n,1);
+    res.order.PsiCo = zeros(n,1);
+    res.order.Prop  = zeros(n,1);
     
