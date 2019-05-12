@@ -1,41 +1,34 @@
-function model = tbx_sm_depth_model_one_plane(p)
+%% State space representation for Aucher Model [Psi V R]
 
-    Cz = [0 0 p.CzW/p.Vs p.CzQ*p.L/p.Vs p.CzB1 0];
-    Cm = [0 0 p.CmW/p.Vs p.CmQ*p.L/p.Vs p.CmB1 0];
-
-    Fz_navire = p.Vs^2/(2*p.CRemp*p.L)*Cz;
-    My_navire = p.Vs^2/(2*p.CRemp)*Cm;
-
-    Fz_couplage = [0 0 0       p.mu*p.Vs 0 0];
-    My_couplage = [0 0 0 -p.mu*p.Xg*p.Vs 0 0];
-
-    Fz_hydrostat = [0              0 0 0 0   (p.mu-1)*p.g];
-    My_hydrostat = [0 -p.mu*p.Zg*p.g 0 0 0 -p.mu*p.Xg*p.g];
-
-    Fz = Fz_hydrostat + Fz_couplage + Fz_navire;
-    My = My_hydrostat + My_couplage + My_navire;
-
-    Mpropre  = [      p.mu   -p.mu*p.Xg ;...
-                -p.mu*p.Xg p.L^2*p.X_2] ;
-                
-    Majoutee = [      p.Mu_3       -p.L*p.Nu_35 ;...
-                -p.L*p.Nu_35  p.L^2*p.Lambda_2] ;
-                 
-    Masse = Mpropre + Majoutee;
-
-    Aux = Masse\[Fz ; My];
+function model = tbx_sm_heading_model(p)
     
-    Wpt = Aux(1,:);
-    Qpt = Aux(2,:);
+    M  = [1 0         0             ; ...
+          0 p.Mu      p.Mu*p.Xg     ; ...
+          0 p.Mu*p.Xg p.L*p.L*p.X_3];
     
-    thetapt = [0     0 0 1 0 0];
-    Zpt     = [0 -p.Vs 1 0 0 0];
+    Ma = [0 0            0                  ; ...
+          0 p.Mu_2       -p.L*p.Nu_26       ; ...
+          0 -p.L*p.Nu_26 p.L*p.L*p.Lambda_3];
 
-    F = [Zpt ; thetapt ; Wpt ; Qpt];
-    A = F(:,1:4);
-    B = F(:,5);
+    Masse = M + Ma;
+
+    Ainert = [0 0 1                ; ...
+              0 0 -p.Mu*Vs         ; ...
+              0 0 -p.Mu*p.Xg*p.Vs] ;
+
+    A      = [0 0         0        ; ...
+              0 p.CyV/p.L p.CyR    ; ...
+              0 p.CnV     p.CnR*p.L]*p.Vs/(2*p.CRemp);
+
+    A = A + Ainert;
+
+    B = [0 ; p.CyAL/p.L ; p.CnAL]*p.Vs*p.Vs/(2*p.CRemp) ;
+
+    A = Masse\A;
+    B = Masse\B;
+
     
     model.a = A;
     model.b = B;
-    model.c = eye(4);
-    model.d = zeros(4,1);
+    model.c = eye(3);
+    model.d = zeros(3,1);
