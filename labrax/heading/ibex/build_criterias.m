@@ -2,14 +2,14 @@ function criterias = build_criterias(transferts, gabarits)
 
     %% Build criterias separated for each variable
 
-    criterias.zz1    = build_criteria_hinf(transferts.zz  / gabarits.zz1);
-    criterias.zz2    = build_criteria_hinf(transferts.zz  / gabarits.zz2);
-    criterias.zb     = build_criteria_hinf(transferts.zb  / gabarits.zb);
-    criterias.zz_t   = build_criteria_hinf(transferts.zz);
-    criterias.zb_t   = build_criteria_hinf(transferts.zb);
-    criterias.zz1_w  = build_criteria_hinf(gabarits.zz1 );
-    criterias.zz2_w  = build_criteria_hinf(gabarits.zz2 );
-    criterias.zb_w   = build_criteria_hinf(gabarits.zb );
+    criterias.psi1    = build_criteria_hinf(transferts.psi  / gabarits.psi1);
+    criterias.psi2    = build_criteria_hinf(transferts.psi  / gabarits.psi2);
+    criterias.psia    = build_criteria_hinf(transferts.psia / gabarits.psia);
+    criterias.psi_t   = build_criteria_hinf(transferts.psi);
+    criterias.psia_t  = build_criteria_hinf(transferts.psia);
+    criterias.psi1_w  = build_criteria_hinf(gabarits.psi1 );
+    criterias.psi2_w  = build_criteria_hinf(gabarits.psi2 );
+    criterias.psia_w  = build_criteria_hinf(gabarits.psia );
     %% Build stability criterion
 
     criterias.stab_coefs = build_criteria_stab_coeffs(transferts.poly_stab);

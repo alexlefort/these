@@ -1,38 +1,34 @@
 %%
 %% Build a depth controller using stern plane with an integrator on Z :
 %%
-%% X = [Z Theta dZ dTheta]
-%% Y = [Z Theta dZ dTheta]
-%% U = [Beta1]
+%% X = [Psi V R]
+%% Y = [Psi V R]
+%% U = [Alpha]
 
 function model_ctrl = build_controller(Vs,g)
 
     %% Controller gains 
     if (nargin == 1)
-        g.kz  = sym('kz' , 'real'); 
-        g.kpi = sym('kpi', 'real'); 
-        g.ipi = sym('ipi', 'real'); 
-        g.kq  = sym('kq' , 'real');
+        g.kpsi = sym('kpsi', 'real'); 
+        g.kr   = sym('kr'  , 'real'); 
+        g.ir   = sym('ir'  , 'real'); 
     end
     
     syms s;
-    r = (g.kpi + g.ipi/s);
     %% Transfert matrix representation
-    sym_tf = [g.kz*r r -r/Vs g.kq];
+    sym_tf = [((g.kpsi*g.kr + g.ir)+g.ir*g.kpsi/s) 0 g.kr];
     
     %% State space representation     
     sym_ss.a = zeros(1);
-    sym_ss.b = [g.kz*g.ipi g.ipi -g.ipi/Vs g.ipi];
-    sym_ss.c = 1;
-    sym_ss.d = [g.kz*g.kpi g.kpi -g.kpi/Vs g.kq];
+    sym_ss.b = [1 0 0];
+    sym_ss.c = g.ir*g.kpsi;
+    sym_ss.d = [(g.kr*g.kpsi +g.ir) 0 g.kr];
 
     %% Save struct
     model_ctrl.gains = g;
     model_ctrl.symtf = sym_tf;
     model_ctrl.symss = sym_ss;
 
-    model_ctrl.gnames.kz   = sym('kz' , 'real'); 
-    model_ctrl.gnames.kpi  = sym('kpi', 'real'); 
-    model_ctrl.gnames.ipi  = sym('ipi', 'real'); 
-    model_ctrl.gnames.kq   = sym('kq' , 'real');
-	
+    model_ctrl.gnames.kpsi = sym('kpsi', 'real'); 
+    model_ctrl.gnames.kr   = sym('kr'  , 'real'); 
+    model_ctrl.gnames.ir   = sym('ir'  , 'real'); 

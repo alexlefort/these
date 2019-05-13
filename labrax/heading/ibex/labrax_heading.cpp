@@ -8,49 +8,48 @@ using namespace std;
 using namespace ibex;
 
 
-void labrax_depth() {
 
-    Variable x(4);
-    IntervalVector x_ini(4);
+void labrax_heading() {
 
-    double kz0  = 0.0   ;    
-    double kpi0 = 0.0   ; 
-    double ipi0 = 0.0   ;   
-    double kq0  = 0.0   ;
+    Variable x(3);
+    IntervalVector x_ini(3);
+
+    double kpsi0 = 0.0   ;    
+    double kr0   = 0.0   ; 
+    double ir0   = 0.0   ;   
     
-    double eps_ctrl = 10.0;
+    double eps_ctrl = 3.0;
 
-    x_ini[0] = Interval(kz0  - eps_ctrl , kz0  + eps_ctrl);
-    x_ini[1] = Interval(kpi0 - eps_ctrl , kpi0 + eps_ctrl);
-    x_ini[2] = Interval(ipi0 - eps_ctrl , ipi0 + eps_ctrl);
-    x_ini[3] = Interval(kq0  - eps_ctrl , kq0  + eps_ctrl);
+    x_ini[0] = Interval(kpsi0 , kpsi0 + eps_ctrl);
+    x_ini[1] = Interval(kr0   , kr0   + eps_ctrl);
+    x_ini[2] = Interval(ir0   , ir0   + eps_ctrl);
 
-    double CmQ0  = -0.8116 ;
-    double CzW0  = -2.6126 ;
-    double CmB10 = -0.7155 ;
-    double CzB10 = -1.2233 ;
-    double eps   =  0.000000;
+    double CnR  = -0.8163 ;
+    double CyV  = -4.6093 ;
+    double CnAL =  0.7155 ;
+    double CyAL = -1.2233 ;
+    double eps  =  0.1000 ;
 
     Variable y(5);
     IntervalVector y_ini(5);
     
-    y_ini[0] = Interval(CmQ0  - eps*fabs(CmQ0 ), CmQ0  + eps*fabs(CmQ0 ));
-    y_ini[1] = Interval(CzW0  - eps*fabs(CzW0 ), CzW0  + eps*fabs(CzW0 ));
-    y_ini[2] = Interval(CmB10 - eps*fabs(CmB10), CmB10 + eps*fabs(CmB10));
-    y_ini[3] = Interval(CzB10 - eps*fabs(CzB10), CzB10 + eps*fabs(CzB10));
+    y_ini[0] = Interval(CnR  - eps*fabs(CnR ), CnR  + eps*fabs(CnR ));
+    y_ini[1] = Interval(CyV  - eps*fabs(CyV ), CyV  + eps*fabs(CyV ));
+    y_ini[2] = Interval(CnAL - eps*fabs(CnAL), CnAL + eps*fabs(CnAL));
+    y_ini[3] = Interval(CyAL - eps*fabs(CyAL), CyAL + eps*fabs(CyAL));
     y_ini[4] = Interval(-3,1);    
 
     Variable p(4);
     IntervalVector p_ini(4);
     
-    p_ini[0] = Interval(CmQ0  - eps*fabs(CmQ0 ), CmQ0  + eps*fabs(CmQ0 ));
-    p_ini[1] = Interval(CzW0  - eps*fabs(CzW0 ), CzW0  + eps*fabs(CzW0 ));
-    p_ini[2] = Interval(CmB10 - eps*fabs(CmB10), CmB10 + eps*fabs(CmB10));
-    p_ini[3] = Interval(CzB10 - eps*fabs(CzB10), CzB10 + eps*fabs(CzB10));
+    p_ini[0] = Interval(CnR  - eps*fabs(CnR ), CnR  + eps*fabs(CnR ));
+    p_ini[1] = Interval(CyV  - eps*fabs(CyV ), CyV  + eps*fabs(CyV ));
+    p_ini[2] = Interval(CnAL - eps*fabs(CnAL), CnAL + eps*fabs(CnAL));
+    p_ini[3] = Interval(CyAL - eps*fabs(CyAL), CyAL + eps*fabs(CyAL));
 
     int num_thread = 8;
 
-    double x_prec(1e-10), y_prec(1e-10), stop_prec(0.1);
+    double x_prec(1e-10), y_prec(1e-10), stop_prec(0.01);
 
     cout << "test1" << endl;
 
@@ -66,9 +65,9 @@ void labrax_depth() {
 
     for (int i = 0 ; i <num_thread ; i++) {
 
-        Function crit_hinf_zz1("functions/Tzz1.txt" ) ;
-        Function crit_hinf_zz2("functions/Tzz2.txt" ) ;
-        Function crit_hinf_zb1("functions/Tzb.txt" ) ;
+        Function crit_hinf_psi1("functions/Tpsi1.txt" ) ;
+        Function crit_hinf_psi2("functions/Tpsi2.txt" ) ;
+        Function crit_hinf_psia("functions/Tpsia.txt" ) ;
     
         coeffs.push_back(new Function("functions/Tstab_coefs.txt"));
 
@@ -77,12 +76,12 @@ void labrax_depth() {
         const ExprNode& stab3 = (*coeffs[i])(x,p)[2];
         const ExprNode& stab4 = (*coeffs[i])(x,p)[3];
         const ExprNode& stab5 = (*coeffs[i])(x,p)[4];
-        const ExprNode& stab6 = (*coeffs[i])(x,p)[5];
 
-        stabs.push_back(new Function(x,p,ibex::max(ibex::max(ibex::max(ibex::max(-stab6,-stab4),-stab2),ibex::pow(stab1,2)*ibex::pow(stab6,2) + ibex::pow(stab2,2)*ibex::pow(stab5,2) + stab1*ibex::pow(stab4,2)*stab5 + stab2*ibex::pow(stab3,2)*stab6 - 2*stab1*stab2*stab5*stab6 - stab1*stab3*stab4*stab6 - stab2*stab3*stab4*stab5),stab1*stab4 - stab2*stab3)));
-        Function f_max1(x,y,crit_hinf_zz1(x,y));
-        Function f_max2(x,y,crit_hinf_zz2(x,y));
-        Function f_max3(x,y,crit_hinf_zb1(x,y));
+        stabs.push_back(new Function(x,p,ibex::max(ibex::max(ibex::max(ibex::max(-stab5,-stab3),-stab1),ibex::pow(stab2,2)*ibex::pow(stab5,2) + stab1*ibex::pow(stab4,2)*stab5 - stab2*stab3*stab4*stab5),stab1*stab4 - stab2*stab3))); 
+        
+        Function f_max1(x,y,crit_hinf_psi1(x,y));
+        Function f_max2(x,y,crit_hinf_psi2(x,y));
+        Function f_max3(x,y,crit_hinf_psia(x,y));
             
         goals.push_back(new Function(x,y,ibex::max(f_max1(x,y),(ibex::max(f_max2(x,y),f_max3(x,y))))));
 
@@ -112,25 +111,25 @@ void labrax_depth() {
 
     OptimMinMax oo(sys_x, sys_xy, fa_y_sys, x_ctc_id, xy_ctc, fa_y_ctc, x_prec, y_prec,stop_prec,prec_fa_y, num_thread);
     
-    oo.list_elem_absolute_max = 500;
+    oo.list_elem_absolute_max = 200;
     oo.list_rate = 0;
     oo.critpr = 0.4;
     oo.heap_prob = 0.5;
     oo.min_prec_coef = 10;
     oo.iter = 10;
-    oo.visit_all = false;
+    oo.visit_all = true;
     oo.nb_point = 1;
 
-    oo.list_elem_absolute_max_csp = 500;
+    oo.list_elem_absolute_max_csp = 200;
     oo.iter_csp = 10;
     oo.critpr_csp = 0.3;
     oo.list_rate_csp = 0;
     oo.min_prec_coef_csp = 10;
-    oo.visit_all_csp = false;
+    oo.visit_all_csp = true;
 
     oo.trace=1;
     oo.trace_freq = 1;
-    oo.timeout=600;
+    oo.timeout=1000;
 
     Optim::Status res = oo.optimize(x_ini);
 
@@ -140,8 +139,6 @@ void labrax_depth() {
 
 
 int main(int argc, char* argv[]) {
-
-RNG::srand(1234);
-labrax_depth();
-
+    RNG::srand(1234);
+    labrax_heading();
 }
