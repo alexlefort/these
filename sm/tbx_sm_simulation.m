@@ -1,12 +1,7 @@
-function res = tbx_sm_simulation(is_saved)
+function res = tbx_sm_simulation(param, noise , mission, pctrl, is_saved)
     
     rng(1234);
     close all;
-   
-    param   = tbx_sm_load_model('iver2.nav');
-    noise   = tbx_sm_load_noises()  ;
-    mission = tbx_sm_load_mission() ;
-    pctrl   = tbx_sm_load_pctrl()   ;
     
     %% Initial State
     

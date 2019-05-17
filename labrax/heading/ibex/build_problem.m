@@ -26,14 +26,15 @@ Vs = 1.5;
 	criterias = build_criterias(transferts, gabarits);
 
     save('criterias.mat', 'criterias');
-
+    save('transferts.mat', 'transferts');
+    
 %% Save in files
 
-symtbx_save_criterion(criterias.psi1       , model_ctrl.gains , model_sm.p0 , 'functions/Tpsi1.txt'       );
-symtbx_save_criterion(criterias.psi2       , model_ctrl.gains , model_sm.p0 , 'functions/Tpsi2.txt'       );
-symtbx_save_criterion(criterias.psia       , model_ctrl.gains , model_sm.p0 , 'functions/Tpsia.txt'        );
-symtbx_save_criterion(criterias.stab_coefs , model_ctrl.gains , model_sm.p0 , 'functions/Tstab_coefs.txt');
-symtbx_save_criterion(criterias.stab_lc    , model_ctrl.gains , model_sm.p0 , 'functions/Tstab_lc.txt'   );
+symtbx_save_criterion(criterias.psi1       , model_ctrl.gains , model_sm.p0 , 'Tpsi1.txt'      );
+symtbx_save_criterion(criterias.psi2       , model_ctrl.gains , model_sm.p0 , 'Tpsi2.txt'      );
+symtbx_save_criterion(criterias.psia       , model_ctrl.gains , model_sm.p0 , 'Tpsia.txt'      );
+symtbx_save_criterion(criterias.stab_coefs , model_ctrl.gains , model_sm.p0 , 'Tstab_coefs.txt');
+symtbx_save_criterion(criterias.stab_lc    , model_ctrl.gains , model_sm.p0 , 'Tstab_lc.txt'   );
 
 symtbx_save_criterion(criterias.stab_coefs, model_ctrl.gains , model_sm.p0 , 'tstab.h');
 save_lienard_chipart(length(criterias.stab_coefs), 'stab' , 'stab.h', sym(0));

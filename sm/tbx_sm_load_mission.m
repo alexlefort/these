@@ -1,12 +1,12 @@
-function mission = tbx_sm_load_mission()
+function mission = tbx_sm_load_mission(Vs)
 
     dt        = 0.1        ;
-    Tmax      = 1000       ;
+    Tmax      = 20         ;
     mission.T = 0:dt:Tmax  ;
     
     n = length(mission.T);
     
-    mission.state_init.U     = 0.5 ;
+    mission.state_init.U     = Vs ;
     mission.state_init.V     = 0.0 ;
     mission.state_init.W     = 0.0 ;
     mission.state_init.P     = 0.0 ;
@@ -26,4 +26,4 @@ function mission = tbx_sm_load_mission()
    
     mission.ZCo   = 50*ones(n,1) ;
     mission.PsiCo = 1*ones(n,1) ;
-    mission.Prop  = 12*ones(n,1);
+    mission.Prop  = 0*ones(n,1);

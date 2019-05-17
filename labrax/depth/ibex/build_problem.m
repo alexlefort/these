@@ -26,7 +26,7 @@ Vs = 1.5;
 	criterias = build_criterias(transferts, gabarits);
 
     save('criterias.mat', 'criterias');
-
+    save('transferts.mat', 'transferts');
 %% Save in files
 
 symtbx_save_criterion(criterias.zz1        , model_ctrl.gains , model_sm.p0 , 'functions/Tzz1.txt'       );
