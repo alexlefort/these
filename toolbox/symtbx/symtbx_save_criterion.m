@@ -22,7 +22,7 @@ function symtbx_save_criterion(c, k, p, name)
     if (isa(c,'cell'))
         mes = ['function f(x[', num2str(nkv), '], p[', num2str(npv), ']) \n return('];
     else
-        mes = ['function f(x[', num2str(nkv), '], p[', num2str(npv+1), ']) \n return('];
+        mes = ['function f(x[', num2str(nkv), '], p[', num2str(npv), '],z[1]) \n return('];
     end
 
     %% Write all polys
@@ -55,7 +55,7 @@ function symtbx_save_criterion(c, k, p, name)
             else
                 char_w = ['w^',num2str(jj)];
             end
-            char_p = ['exp(ln(10)*',num2str(jj),'*p[',num2str(npv),'])'];
+            char_p = ['exp(ln(10)*',num2str(jj),'*z[0])'];
             expr = strrep(expr, char_w, char_p);
         end
 

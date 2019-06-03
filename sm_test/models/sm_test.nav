@@ -1,22 +1,12 @@
-################################################################
-#                                                              #
-# Donnees definissant un modele de navire pour DYSCO PC V2.3.0 #
-#               A. Martin - 21/10/2009                         #
-#             modele défini dans le document :                 #
-#         E0152-042_C - DOSSIER JUSTIFICATIF DU DIV            #
-#                                                              #
-################################################################
 
-#
-## Commentaire ou description du contenu du fichier
 [COMMENTAIRE]
-Scorpene Chili Maquette MAX - Modèle de référence avec recalages expé
+SM
 
 
 #
 ## Identification du navire
 [NAVIRE]
-Nom = Scorpene_chili_mer
+Nom = sm_1
 Type = Sous-marin avec barres en croix
 
 #

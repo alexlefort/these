@@ -4,14 +4,16 @@
 using namespace std;
 
 
+
+
 void test_dabbene() {
-    int max_iter = 1000;
+    int max_iter = 10;
     ibex::IntervalVector poly(5);
-    poly[0] = ibex::Interval(1,2);
-    poly[1] = ibex::Interval(3,4);
-    poly[2] = ibex::Interval(5,6);
-    poly[3] = ibex::Interval(7,8);
-    poly[4] = ibex::Interval(9,10);
+    poly[0] = ibex::Interval(1,1);
+    poly[1] = ibex::Interval(2,2);
+    poly[2] = ibex::Interval(3,3);
+    poly[3] = ibex::Interval(4,4);
+    poly[4] = ibex::Interval(5,5);
     bool res = dabbene(poly, max_iter);
     cout << res << endl;
 }
@@ -45,21 +47,24 @@ void test_get_even_coeffs() {
 }
 
 
-//void test_get_ko() {
-//    int max_iter = 1000;
-//    ibex::IntervalVector poly(7);
-//    poly[0] = ibex::Interval(1,2);
-//    poly[1] = ibex::Interval(3,4);
-//    poly[2] = ibex::Interval(5,6);
-//    poly[3] = ibex::Interval(7,8);
-//    poly[4] = ibex::Interval(-19,-10);
-//    poly[5] = ibex::Interval(-19,-10);
-//    poly[6] = ibex::Interval(9,10);
-//    
-//    ibex::IntervalVector aux = get_odd_coeffs(poly);
-//    Eigen::MatrixXd res = get_ko(aux, max_iter);
-//    cout << res << endl;
-//}
+void test_get_ko() {
+    int max_iter = 1000;
+    ibex::IntervalVector poly(7);
+    poly[0] = ibex::Interval(1,2);
+    poly[1] = ibex::Interval(3,4);
+    poly[2] = ibex::Interval(5,6);
+    poly[3] = ibex::Interval(7,8);
+    poly[4] = ibex::Interval(-19,-10);
+    poly[5] = ibex::Interval(-19,-10);
+    poly[6] = ibex::Interval(9,10);
+    
+
+    ibex::IntervalVector aux = get_odd_coeffs(poly);
+    int no = aux.size() -1;
+    Eigen::MatrixXd ko(no+1,1);
+    bool res = get_ko(ko, aux, max_iter);
+    cout << res << endl;
+}
 //
 //
 //void test_compute_roots_odd_polynomial() {

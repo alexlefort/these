@@ -114,6 +114,8 @@ public:
     bool   visit_all_csp              ; // if true force to visit all leaves of slave heap in max optim of csp solver
 
     int    nb_point                   ; // number of point evaluation in current box x (use to compute uplo)
+    int eval_period                   ; // period of point evaluation performed (expected to be greater ore equal to one)
+    int eval_counter                  ; // counter linked to evaluation period
     double perf_thresh                ; // cell is spawn from loc_solve csp list if its perf_csp is lower than perf_thresh
 
     double prec_y                     ;
@@ -164,6 +166,7 @@ public:
     static const int    default_prob_heap;
     static const bool   default_visit_all;
     static const int    default_nb_point;
+    static const int    default_eval_period;
     static const double default_perf_thresh;
 
     //Csp fa function default parameters for light solver
@@ -173,7 +176,7 @@ public:
     static const double default_min_prec_coef_csp;
     static const int    default_prob_heap_csp;
     static const bool   default_visit_all_csp;
-
+   double volume;
 };
 
 

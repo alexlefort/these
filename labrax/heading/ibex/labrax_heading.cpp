@@ -28,15 +28,16 @@ void labrax_heading() {
     double CyV  = -4.6093 ;
     double CnAL =  0.7155 ;
     double CyAL = -1.2233 ;
-    double eps  =  8.300 ;
+    double eps  =  0.300 ;
+    double eps_0 = 0.01;
 
     Variable y(5);
     IntervalVector y_ini(5);
 
-    y_ini[0] = Interval(CnR  , CnR );
-    y_ini[1] = Interval(CyV  , CyV );
-    y_ini[2] = Interval(CnAL , CnAL);
-    y_ini[3] = Interval(CyAL , CyAL);
+    y_ini[0] = Interval(CnR  - eps_0*fabs(CnR ), CnR  + eps_0*fabs(CnR ));
+    y_ini[1] = Interval(CyV  - eps_0*fabs(CyV ), CyV  + eps_0*fabs(CyV ));
+    y_ini[2] = Interval(CnAL - eps_0*fabs(CnAL), CnAL + eps_0*fabs(CnAL));
+    y_ini[3] = Interval(CyAL - eps_0*fabs(CyAL), CyAL + eps_0*fabs(CyAL));
     y_ini[4] = Interval(-3,1);    
 
     Variable p(4);
@@ -44,12 +45,12 @@ void labrax_heading() {
     
     p_ini[0] = Interval(CnR  - eps*fabs(CnR ), CnR  + eps*fabs(CnR ));
     p_ini[1] = Interval(CyV  - eps*fabs(CyV ), CyV  + eps*fabs(CyV ));
-    p_ini[2] = Interval(CnAL , CnAL);
-    p_ini[3] = Interval(CyAL , CyAL);
+    p_ini[2] = Interval(CnAL - eps*fabs(CnAL), CnAL + eps*fabs(CnAL));
+    p_ini[3] = Interval(CyAL - eps*fabs(CyAL), CyAL + eps*fabs(CyAL));
 
     int num_thread = 8;
 
-    double x_prec(1e-4), y_prec(1e-4), stop_prec(0.01);
+    double x_prec(1e-6), y_prec(1e-6), stop_prec(0.1);
 
     cout << "test1" << endl;
 
@@ -131,7 +132,7 @@ void labrax_heading() {
     oo.trace_freq = 1;
     oo.timeout=2000;
 
-    Optim::Status res = oo.optimize(x_ini,2.0);
+    Optim::Status res = oo.optimize(x_ini);
 
     oo.report();
 

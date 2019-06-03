@@ -127,6 +127,7 @@ private:
 
 
     bool check_already_in(Cell * const y_cell, DoubleHeap<Cell> * y_heap);
+    
 
 };
 

@@ -1,4 +1,7 @@
 #include "kharitonov.h"
+#include "iostream"
+
+using namespace std;
 
 
 Eigen::MatrixXd build_hurwitz_matrix_old(Eigen::VectorXd& poly) {
@@ -59,19 +62,21 @@ bool kharitonov(ibex::IntervalVector& box) {
     bool s2 = check_stability(v2);
     bool s3 = check_stability(v3);
     bool s4 = check_stability(v4);
-
+    //cout << s1 << " " << s2 << " " << s3 << " " << s4 << endl;
     return (s1 && s2 && s3 && s4);
 }
 
 bool check_stability_eigen(Eigen::VectorXd& v) {
     
-    Eigen::MatrixXd M_hurwitz = build_hurwitz_matrix_old(v);
-    //std::cout << M_hurwitz << std::endl;
-    int n = v.size();
-    bool stable = true;
-    for (int i = 1 ; i < n ; i ++) {
-        Eigen::MatrixXd minor = M_hurwitz.block(0,0,i,i);
-        stable &= (minor.determinant() > 0);
-    }
-    return stable;
+   int degree = v.size()-1;
+
+    // Buid Companion matrix
+    Eigen::MatrixXd companion = Eigen::MatrixXd::Zero(degree, degree);
+    for (int i = 0 ; i < degree-1 ; i++) { companion(i+1, i) = 1; }
+    for (int i = 0 ; i < degree   ; i++) { companion(0  , i) = -v(degree-i-1)/v(degree); }
+    
+    Eigen::MatrixXd eig = companion.eigenvalues().real();
+
+    // Return Eigen Values
+    return (eig.maxCoeff() < 0);
 }

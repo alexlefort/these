@@ -82,12 +82,13 @@ def configure (conf):
 	if conf.options.GAOL_PATH is not None:
 		switch_to_32bits()
 
+
 	# optimised compilation flags -Wno-unknown-pragmas
 	if conf.options.DEBUG:
 		flags = "-O3 -g -pg -Wall -fopenmp -Wno-unused-variable -fmessage-length=0 "
 		conf.define ("DEBUG", 1)
 	else:
-		flags = "-O3 -fopenmp"
+		flags = "-O3 -fopenmp -frounding-math -std=c++11 -I/home/alexandre/Eigen -I/home/alexandre/libigl/include/igl "
 		conf.define ("NDEBUG", 1)
 	for f in flags.split():
 		if conf.check_cxx (cxxflags = f, mandatory = False):

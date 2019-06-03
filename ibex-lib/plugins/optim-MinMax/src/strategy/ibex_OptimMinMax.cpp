@@ -32,6 +32,7 @@ const int OptimMinMax::default_prob_heap              = 10    ; //10% to pop sec
 const bool OptimMinMax::default_visit_all             = false ;
 
 const int OptimMinMax::default_nb_point       = 1  ;
+const int OptimMinMax::default_eval_period    = 1  ;
 const double OptimMinMax::default_perf_thresh = 0.3;
 
 // Csp default parameters for light solver
@@ -75,6 +76,7 @@ OptimMinMax::OptimMinMax(std::vector<NormalizedSystem*>  x_sys_t        ,
     visit_all(default_visit_all),
     visit_all_csp(default_visit_all_csp),   // unused
     nb_point(default_nb_point),
+    eval_period(default_eval_period),
     perf_thresh(default_perf_thresh),
     prec_y(prec_y),
     fa_y_cst(false),
@@ -107,11 +109,12 @@ OptimMinMax::OptimMinMax(std::vector<NormalizedSystem*>  x_sys_t        ,
            Affine2Eval* aff_eval = new Affine2Eval(*(xy_sys_t[i]->goal));
            lsolve[i]->affine_goal = aff_eval;
            lsolve[i]->goal_abs_prec = goal_rel_prec/100; // set goal prec of maximization problem lower than minimization
-           fa_lsolve[i]->goal_abs_prec = 1e-2;
+           fa_lsolve[i]->goal_abs_prec = 1e-4;
        }
    }
 
    omp_init_lock(&bufferlock); // omp
+   eval_counter = 0;
 };
 
  // Todo :
@@ -149,6 +152,7 @@ OptimMinMax::OptimMinMax(std::vector<NormalizedSystem*> x_sys_t            ,
     visit_all(default_visit_all),
     visit_all_csp(default_visit_all_csp),
     nb_point(default_nb_point),
+    eval_period(default_eval_period),
     perf_thresh(default_perf_thresh),
     prec_y(prec_y),
     fa_y_cst(true),
@@ -180,7 +184,7 @@ OptimMinMax::OptimMinMax(std::vector<NormalizedSystem*> x_sys_t            ,
             Affine2Eval* aff_eval = new Affine2Eval(*(xy_sys_t[i]->goal));
             lsolve[i]->affine_goal = aff_eval;
             lsolve[i]->goal_abs_prec = goal_rel_prec/100; // set goal prec of maximization problem lower than minimization
-            fa_lsolve[i]->goal_abs_prec = 1e-2;
+            fa_lsolve[i]->goal_abs_prec = 1e-4;
         }
      
         Array<const ExprNode> args_csp((xy_sys_t[i]->goal)->nb_arg());
@@ -194,9 +198,10 @@ OptimMinMax::OptimMinMax(std::vector<NormalizedSystem*> x_sys_t            ,
         minus_goal_csp_y_at_x.push_back(new Function(var_csp,-(*(max_fa_y_cst_sys_t[i]->goal))(args_csp)));         
         Affine2Eval* aff_eval_csp = new Affine2Eval(*(max_fa_y_cst_sys_t[i]->goal));
         fa_lsolve[i]->affine_goal = aff_eval_csp;
-        fa_lsolve[i]->goal_abs_prec = 1e-2;
+        fa_lsolve[i]->goal_abs_prec = 1e-4;
     }
     omp_init_lock(&bufferlock); // omp
+    eval_counter = 0;
 };
 
 //Todo :
@@ -262,6 +267,7 @@ Optim::Status OptimMinMax::optimize(const IntervalVector& x_box_ini1, double obj
     loup = obj_init_bound;
     uplo = NEG_INFINITY;
     uplo_of_epsboxes = POS_INFINITY;
+    volume = x_box_ini1.volume();
 
     x_box_init = x_box_ini1;
 
@@ -359,9 +365,9 @@ Optim::Status OptimMinMax::optimize(const IntervalVector& x_box_ini1, double obj
                         if (trace) cout << " infinite value for the minimum " << endl;
                         break;
                     }
-                    if (trace) cout <<  "iter="<< nb_cells <<",  size_heap="<< buffer->size()<< ",  ymax=" << ymax << ",  uplo= " <<  uplo<< endl;
+                    if (trace) cout <<  "iter="<< nb_cells <<",  size_heap="<< buffer->size()<< ",  ymax=" << ymax << ",  uplo= " <<  uplo<< ", vol=" << volume << endl;
                 }
-                if (trace) cout <<  "iter="<< nb_cells <<",  size_heap="<< buffer->size()<< ",  ymax=" << ymax << ",  uplo= " <<  uplo<< endl;
+                if (trace) cout <<  "iter="<< nb_cells <<",  size_heap="<< buffer->size()<< ",  ymax=" << ymax << ",  uplo= " <<  uplo<< ", vol=" << volume << endl;
                 update_uplo();
 
                 Timer::check(timeout);
@@ -425,7 +431,7 @@ bool  OptimMinMax::handle_cell(Cell * x_cell, int ith) {
     //***************** contraction w.r.t constraint on x ****************
     IntervalVector tmpbox(x_cell->box);
     int res_cst = check_constraints(x_cell, false, ith);
-
+    
     if (res_cst == 0) {
         return false;
     } else if (res_cst==2 && only_csp) {
@@ -441,6 +447,8 @@ bool  OptimMinMax::handle_cell(Cell * x_cell, int ith) {
     }
 
     if(!only_csp) {
+        eval_counter++;
+        if(eval_counter%eval_period == 0) {
         //************* point evaluation ****************
         for (int i=0 ; i < nb_point ; i++) {
             Cell *x_copy = new Cell(*x_cell); // copy of the Cell and the y_heap
@@ -488,6 +496,7 @@ bool  OptimMinMax::handle_cell(Cell * x_cell, int ith) {
                     delete x_copy; // delete copy of the heap, no more use and it was not delete in light optim since res1 = 1
                 }
             }
+        }
         }
 
         //************ evaluation of f(x,y_heap) *****************
@@ -620,7 +629,7 @@ int OptimMinMax::compute_heap_max_size(int y_heap_size, bool csp) {
 }
 
 bool OptimMinMax::get_feasible_point(Cell * elem, int ith) {
-    elem->box = elem->box.mid(); // elem->box = elem->box.mid(); //get the box (x,mid(y))
+    elem->box = elem->box.random(); // elem->box = elem->box.mid(); //get the box (x,mid(y))
     int res = check_constraints(elem, true, ith);  // cout<<"done, res = "<<res<<endl;
     if(res == 2) { return true; }
     return false;
@@ -642,7 +651,7 @@ int OptimMinMax::check_regular_ctr(const IntervalVector& box, int ith) {
 
 
 int OptimMinMax::check_fa_ctr(Cell* x_cell, bool midp, int ith) {
-
+    
     DataMinMax * data_csp = &(x_cell->get<DataMinMaxCsp>());
 
     int res = 2;
@@ -661,28 +670,30 @@ int OptimMinMax::check_fa_ctr(Cell* x_cell, bool midp, int ith) {
             fa_lsolve[ith]->list_elem_max = compute_heap_max_size(data_csp->y_heap->size(), true);
             fa_lsolve[ith]->prec_y = compute_min_prec(x_cell->box, true);
         }
-        //cout << "start fa_lsolve" << endl;
         bool ok = fa_lsolve[ith]->optimize(x_cell, 0);
-        //cout << "end fa_lsolve" << endl;
+
         fa_lsolve[ith]->visit_all = visit_all_csp; // reset visit all to initial value
         if(!ok) {
             res = 0;
+            volume -= x_cell->box.volume();
+            //if (!midp) cout << "unstable : " << x_cell->box << " " << midp << endl;
         } else {
             if(data_csp->y_heap->empty()) {
                 data_csp->pu = 1;
                 res = 2;
+                //if (!midp) cout << "stable : " << x_cell->box << endl;
             } else if(data_csp->y_heap->top1()->get<OptimData>().pf.ub() < 0) {
                 data_csp->pu = 1;
                 data_csp->y_heap->flush();
                 res = 2;
-            }
-
-            else res = 1;
+                //if (!midp) cout << "stable : " << x_cell->box << " " << midp << endl;
+            }else res = 1;
         }
     } else {
         res = 2;
+        //if (!midp) cout << "unstable : " << x_cell->box << " " << midp << endl;
     }
-    //if (!midp) cout << res << endl;
+    //if (!midp && res == 2) volume += x_cell->box.volume();
     return res;
 }
 

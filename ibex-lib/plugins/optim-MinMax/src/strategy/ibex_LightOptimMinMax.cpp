@@ -11,7 +11,8 @@
 #include "ibex_DataMinMax.h"
 #include "ibex_NoBisectableVariableException.h"
 #include "ibex_Timer.h"
-
+#include "ibex_optim_KD.h"
+#include "iostream"
 
 using namespace std;
 
@@ -189,7 +190,7 @@ bool LightOptimMinMax::handle_cell( Cell* x_cell,Cell*  y_cell,double loup,bool 
     IntervalVector mid_y_box = get_feasible_point(x_cell,y_cell);
 
     if (!(mid_y_box.is_empty())) {
-        Interval midres = eval_all(xy_sys.goal,mid_y_box);
+        Interval midres = eval_all(xy_sys.goal, mid_y_box);
         if ( loup < midres.lb() ) {
             delete y_cell;
             return false; // no need to go further, x_box does not contains the solution
@@ -203,13 +204,11 @@ bool LightOptimMinMax::handle_cell( Cell* x_cell,Cell*  y_cell,double loup,bool 
             }
         }
     }
-
     //************ part below add a contraction w.r.t f(x,y)<best_max, this part may not be efficient on every problem ******************************
 
     if(data_y->pu == 1) {
         IntervalVector xy_box_mem(xy_box);
-        xy_sys.goal->backward(Interval(NEG_INFINITY,loup),mid_y_box);
-
+        if (!csp_actif) xy_sys.goal->backward(Interval(NEG_INFINITY,loup),mid_y_box);
         if(xy_box.is_empty()) {
             delete y_cell;
             return false;
@@ -226,15 +225,14 @@ bool LightOptimMinMax::handle_cell( Cell* x_cell,Cell*  y_cell,double loup,bool 
         }
     }
     //********************************************
-    if(eval_all(xy_sys.goal,xy_box).ub() > data_y->pf.ub() + 10e-13) {
-       cout<<" ************************** CRITICAL ISSUE *******************"<<endl;
-       cout<<" get worst upper bound, should not happen due to monotonicity of ifunc"<<endl;
-       cout << xy_box << endl;
-       cout << eval_all(xy_sys.goal,xy_box).ub() - data_y->pf.ub() << endl;
-
-       cout<<"***************************************************************"<<endl;
-    }
-
+    // if(eval_all(xy_sys.goal,xy_box).ub() > data_y->pf.ub()) {
+    //    cout<<" ************************** CRITICAL ISSUE *******************"<<endl;
+    //    cout<<" get worst upper bound, should not happen due to monotonicity of ifunc"<<endl;
+    //    cout << xy_box << endl;
+    //    cout << eval_all(xy_sys.goal,xy_box).ub() - data_y->pf.ub() << endl;
+// 
+    //    cout<<"***************************************************************"<<endl;
+    // }
     data_y->pf &= eval_all(xy_sys.goal,xy_box);
     if( data_y->pf.is_empty() || data_x->fmax.lb() > data_y->pf.ub()) {  // y_box cannot contains max f(x,y)
         delete y_cell;
@@ -284,12 +282,14 @@ bool LightOptimMinMax::handle_constraint(OptimData  *data_y, IntervalVector & xy
 
 
 bool LightOptimMinMax::handle_cstfree(IntervalVector& xy_box, Cell * const y_cell) {
-
+    
+    if (!csp_actif) {
     IntervalVector grad(xy_box.size());
     xy_sys.goal->gradient(xy_box,grad);
     for(int i = xy_box.size() - y_cell->box.size() ; i < xy_box.size() ; i++) {
         if(grad[i].lb()>0) { (xy_box)[i] = Interval((xy_box)[i].ub()); }
         if(grad[i].ub()<0) { (xy_box)[i] = Interval((xy_box)[i].lb()); }
+    }
     }
     return true;
 }
@@ -319,6 +319,15 @@ int LightOptimMinMax::check_constraints(const IntervalVector& xy_box) {
     }
     return res;
 }
+
+
+//int LightOptimMinMax::check_constraints(const IntervalVector& xy_box) {
+//	cout << "toto " << xy_sys.nb_ctr << endl;
+//	IntervalVector res =  xy_sys.ctrs[0].f.eval_vector(xy_box);
+//	cout << res << endl;
+//    return KD_operator(res);
+//}
+
 
 
 IntervalVector LightOptimMinMax::get_mid_y(const IntervalVector& x_box, const IntervalVector& y_box) { // returns the cast of box x and mid of box y
@@ -366,8 +375,18 @@ void LightOptimMinMax::delete_save_heap() {
 
 
 Interval LightOptimMinMax::eval_all(Function* f,const IntervalVector& box) {
-    Interval eval = f->eval(box);
-    return eval;
+    if(!csp_actif) {
+        Interval eval = f->eval(box);
+        return eval;
+    } else {
+    	IntervalVector res =  f->eval_vector(box);
+        int res_kd = KD_operator(res);
+
+        if (res_kd == 0) return Interval(-10,-5);
+        if (res_kd == 1) return Interval( -5, 5);
+        if (res_kd == 2) return Interval(  5,10);
+    }
+
 }
 
 bool LightOptimMinMax::check_already_in(Cell * const y_cell, DoubleHeap<Cell> * y_heap) {
