@@ -9,11 +9,27 @@ bool dabbene(ibex::IntervalVector& poly, int max_iter) {
     bool found = false;
 
     int n = poly.size();
+
+    ibex::IntervalVector poly_rev = poly;
+
+    for (int i = 0 ; i <n ; i++) {
+        poly_rev[i] = poly[n-i-1];
+        if (poly_rev[i].ub() < 0) {
+            return false;
+        } else {
+            poly_rev[i] = ibex::Interval(std::max(poly_rev[i].lb(),1e-10), poly_rev[i].ub());
+        }
+    }
+
+    for (int i = 0 ; i <n ; i++) {
+        poly[i] = poly_rev[n-i-1];
+    }
+
     if (n < 2) {
         return true;
     } else {
-        ibex::IntervalVector odd_coeffs  = get_odd_coeffs (poly);
-        ibex::IntervalVector even_coeffs = get_even_coeffs(poly);
+        ibex::IntervalVector odd_coeffs  = get_odd_coeffs (poly_rev);
+        ibex::IntervalVector even_coeffs = get_even_coeffs(poly_rev);
     
         int no = odd_coeffs.size()  - 1;
         int ne = even_coeffs.size() - 1;
@@ -79,7 +95,7 @@ bool dabbene(ibex::IntervalVector& poly, int max_iter) {
 }
 
 
-ibex::IntervalVector get_odd_coeffs(ibex::IntervalVector& poly) {
+ibex::IntervalVector get_odd_coeffs(ibex::IntervalVector const& poly) {
 
     int n = poly.size()-1; // n is >= 2
     int no = ((n%2 == 0) ? n/2 -1 : (n-1)/2);
@@ -91,7 +107,7 @@ ibex::IntervalVector get_odd_coeffs(ibex::IntervalVector& poly) {
 }
 
 
-ibex::IntervalVector get_even_coeffs(ibex::IntervalVector& poly) {
+ibex::IntervalVector get_even_coeffs(ibex::IntervalVector const& poly) {
 
     int n = poly.size()-1; // n is >= 2
     int ne = ((n%2 == 0) ? n/2 : (n-1)/2);
@@ -103,7 +119,7 @@ ibex::IntervalVector get_even_coeffs(ibex::IntervalVector& poly) {
 }
 
 
- bool get_ko(Eigen::MatrixXd& res, ibex::IntervalVector& odd_coeffs, int max_iter) {
+ bool get_ko(Eigen::MatrixXd& res, ibex::IntervalVector const& odd_coeffs, int max_iter) {
 
     int no = odd_coeffs.size()-1;
     int iter = 0;
@@ -127,7 +143,7 @@ ibex::IntervalVector get_even_coeffs(ibex::IntervalVector& poly) {
         //std::cout << iter << " " << ko(0,0) << " " << ko(1,0) << std::endl;
         
         int i = 2;
-        while (i < no + 1 && iter < max_iter) {
+        while (i < no + 1 || iter < max_iter) {
         	// std::cout << ko << std::endl << std::endl;
             ibex::Interval res = is_interval_empty(odd_coeffs[i], ko(i-1,0), ko(i-2,0), (double) i, (double) no);
             if (res.lb() ==-1) {
@@ -166,7 +182,7 @@ ibex::Interval is_interval_empty(ibex::Interval k2ip1, double k2im1, double k2im
 }
 
 
-Eigen::MatrixXd compute_po(Eigen::MatrixXd& ko) {
+Eigen::MatrixXd compute_po(Eigen::MatrixXd const& ko) {
     int no = ko.rows() - 1;
     Eigen::MatrixXd u  = compute_u(1, no);
     Eigen::MatrixXd po = Eigen::MatrixXd::Zero(2*no+1, 1);
@@ -178,7 +194,7 @@ Eigen::MatrixXd compute_po(Eigen::MatrixXd& ko) {
 
 
 // Compute roots of a polynomial
-Eigen::VectorXcd compute_poly_roots(Eigen::MatrixXd& p) {
+Eigen::VectorXcd compute_poly_roots(Eigen::MatrixXd const& p) {
 
     int degree = p.rows()-1;
 
@@ -192,7 +208,7 @@ Eigen::VectorXcd compute_poly_roots(Eigen::MatrixXd& p) {
 }
 
 // Test if values in a vector a real
-bool test_if_real(Eigen::VectorXcd& p) {
+bool test_if_real(Eigen::VectorXcd const& p) {
     
     //std::cout << p.size() << std::endl;
     for (int i = 0 ; i < p.size() ; i++) {
@@ -203,7 +219,7 @@ bool test_if_real(Eigen::VectorXcd& p) {
 }
 
 // Sort values in a vector
-Eigen::MatrixXd sort_vector(Eigen::MatrixXd& p) {
+Eigen::MatrixXd sort_vector(Eigen::MatrixXd const& p) {
     
 
     Eigen::VectorXd pmat = p.col(0);
@@ -218,7 +234,7 @@ Eigen::MatrixXd sort_vector(Eigen::MatrixXd& p) {
 }
 
 // Test if all consecutive values are distinct in a vector
-bool test_if_distinct(Eigen::MatrixXd& p) {
+bool test_if_distinct(Eigen::MatrixXd const& p) {
     
     for (int i = 0 ; i < p.rows()-1 ; i++) {
     	if  (fabs(p(i,0)-p(i+1,0)) < 1e-15) return false;
@@ -227,7 +243,7 @@ bool test_if_distinct(Eigen::MatrixXd& p) {
 }
 
 
-Eigen::MatrixXd return_roots(Eigen::MatrixXd& r) {
+Eigen::MatrixXd return_roots(Eigen::MatrixXd const& r) {
 
     int n = r.rows()/2;
     //std::cout << "n = " << n << std::endl;
@@ -239,7 +255,7 @@ Eigen::MatrixXd return_roots(Eigen::MatrixXd& r) {
     return res;
 }
    
-Eigen::MatrixXd compute_ve(Eigen::MatrixXd& odd_roots, int ne) {
+Eigen::MatrixXd compute_ve(Eigen::MatrixXd const& odd_roots, int ne) {
     
     int no = odd_roots.size();
     Eigen::MatrixXd ve(no+1, ne+1);
@@ -262,7 +278,7 @@ Eigen::MatrixXd compute_u(double omega, int n) {
 }
 
 
-bool does_ke_exist(ibex::IntervalVector& even_coeffs, Eigen::MatrixXd ve) {
+bool does_ke_exist(ibex::IntervalVector const& even_coeffs, Eigen::MatrixXd const& ve) {
 
     // std::cout << "prepare linprog 1" << std::endl;
 

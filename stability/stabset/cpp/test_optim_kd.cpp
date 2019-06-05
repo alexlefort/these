@@ -8,8 +8,8 @@ using namespace ibex;
 
 void test_optim_kd() {
 
-	Variable x(5);
-    IntervalVector x_ini(5);
+	Variable x(9);
+    IntervalVector x_ini(9);
     
     double eps_ctrl  = 10.0     ; 
     double eps       =  0.00001 ;
@@ -20,12 +20,16 @@ void test_optim_kd() {
     x_ini[1] = Interval(-eps_ctrl,eps_ctrl);
     x_ini[2] = Interval(-eps_ctrl,eps_ctrl);
     x_ini[3] = Interval(-eps_ctrl,eps_ctrl);
-    x_ini[4] = Interval(-eps_ctrl,eps_ctrl);
+    x_ini[4] = Interval(-0.5,0.5);
+    x_ini[5] = Interval(-eps_ctrl,eps_ctrl);
+    x_ini[6] = Interval(-eps_ctrl,eps_ctrl);
+    x_ini[7] = Interval(-eps_ctrl,eps_ctrl);
+    x_ini[8] = Interval(-eps_ctrl,eps_ctrl);
     //x_ini[5] = Interval(CzW0 - eps*fabs(CzW0), CzW0 + eps*fabs(CzW0));
     //x_ini[6] = Interval(CmQ0 - eps*fabs(CmQ0), CmQ0 + eps*fabs(CmQ0));
 
 
-    Function coeffs = Function("Tstab_coefs.txt");
+    Function coeffs = Function("Tstab_coefs_9.txt");
 
     const ExprNode& stab1 = coeffs(x)[0];
     const ExprNode& stab2 = coeffs(x)[1];
@@ -42,8 +46,8 @@ void test_optim_kd() {
 
     NormalizedSystem sys(fac_x); 
 
-    int nb_iter = 1000000;
-    int trace_freq = 1000;
+    int nb_iter = 10000000;
+    int trace_freq = 10000;
     cout << "start" << endl;
     OptimKD oo(sys, x_ini, nb_iter, trace_freq);
 

@@ -8,7 +8,7 @@ close all
 
 %% Build controller model
 	disp('--> build controller model');    
-	model_ctrl = build_controller_simple();
+	model_ctrl = build_controller();
 
 %% Build transfert functions
 	disp('--> build transferts'); 

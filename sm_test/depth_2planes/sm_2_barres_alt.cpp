@@ -40,7 +40,7 @@ void sm_2_barres() {
 
     double CzW0      = -2.7  ;
     double CmQ0      = -0.38 ;
-    double eps       =  0.0  ;
+    double eps       =  0.2  ;
     double eps_stab  =  0.0  ;
 
     Variable y(2);

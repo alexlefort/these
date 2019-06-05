@@ -8,6 +8,23 @@ using namespace std;
 using namespace ibex;
 
 
+Function create_function(Function& f, Variable& x, Variable& y) {
+    
+    Function fres(x,y,f(x,y,Interval(-3,-3)));
+    int n = 10;
+
+    std::vector<Function> fvect = std::vector<Function>();
+    fvect.push_back(Function(x,y,fres(x,y)));
+
+    for (int i = 1 ; i <n; i ++) {
+        double z = -3.0+0.2*i;
+        Function new_f(x,y,f(x,y,Interval(z,z)));
+        fvect.push_back(Function(x,y,ibex::max(fvect[i-1](x,y),new_f(x,y))));
+    }
+
+    return (fvect[n-1]);
+}
+
 void sm_2_barres() {
 
     Variable x(9);
@@ -23,7 +40,7 @@ void sm_2_barres() {
     double kpt20 = -1.8123   ;  
     double kdt20 = -0.8398   ;  
     
-    double eps_ctrl = 1.5;
+    double eps_ctrl = 30;
 
     //x_ini[0] = Interval(kpz10 - eps_ctrl*fabs(kpz10), kpz10 + eps_ctrl*fabs(kpz10));
     //x_ini[1] = Interval(kdz10 - eps_ctrl*fabs(kdz10), kdz10 + eps_ctrl*fabs(kdz10));
@@ -36,27 +53,26 @@ void sm_2_barres() {
     //x_ini[8] = Interval(kdt20 - eps_ctrl*fabs(kdt20), kdt20 + eps_ctrl*fabs(kdt20));
 
 
-    x_ini[0] = Interval(0,0);
-    x_ini[1] = Interval(0,0);
+    x_ini[0] = Interval(-eps_ctrl,eps_ctrl);
+    x_ini[1] = Interval(-eps_ctrl,eps_ctrl);
     x_ini[2] = Interval(-eps_ctrl,eps_ctrl);
-    x_ini[3] = Interval(0,0);
-    x_ini[4] = Interval(0.001,0.001);
+    x_ini[3] = Interval(-eps_ctrl,eps_ctrl);
+    x_ini[4] = Interval(-1,1);
     x_ini[5] = Interval(-eps_ctrl,eps_ctrl);
     x_ini[6] = Interval(-eps_ctrl,eps_ctrl);
-    x_ini[7] = Interval(0,0);
-    x_ini[8] = Interval(0,0);
+    x_ini[7] = Interval(-eps_ctrl,eps_ctrl);
+    x_ini[8] = Interval(-eps_ctrl,eps_ctrl);
 
     double CzW0      = -2.7  ;
     double CmQ0      = -0.38 ;
-    double eps       =  0.0  ;
-    double eps_stab  =  0.0  ;
+    double eps       =  0.2  ;
+    double eps_stab  =  0.2  ;
 
-    Variable y(3);
-    IntervalVector y_ini(3);
+    Variable y(2);
+    IntervalVector y_ini(2);
     
     y_ini[0] = Interval(CzW0 - eps*fabs(CzW0), CzW0 + eps*fabs(CzW0));
     y_ini[1] = Interval(CmQ0 - eps*fabs(CmQ0), CmQ0 + eps*fabs(CmQ0));
-    y_ini[2] = Interval(-2,1);    
 
     Variable p(2);
     IntervalVector p_ini(2);
@@ -64,9 +80,9 @@ void sm_2_barres() {
     p_ini[0] = Interval(CzW0 - eps_stab*fabs(CzW0), CzW0 + eps_stab*fabs(CzW0));
     p_ini[1] = Interval(CmQ0 - eps_stab*fabs(CmQ0), CmQ0 + eps_stab*fabs(CmQ0));
 
-    int num_thread = 4;
+    int num_thread = 8;
 
-    double x_prec(1e-4), y_prec(1e-4), stop_prec(0.1);
+    double x_prec(1e-6), y_prec(1e-6), stop_prec(0.1);
 
     cout << "test1" << endl;
 
@@ -85,12 +101,15 @@ void sm_2_barres() {
     for (int i = 0 ; i <num_thread ; i++) {
 
         Function crit_hinf_zz1("functions/Tzz1.txt" ) ;
+            cout << "test2" << endl;   
         Function crit_hinf_zz2("functions/Tzz2.txt" ) ;
+            cout << "test2" << endl;   
         Function crit_hinf_zb1("functions/Tzb1.txt" ) ;
+            cout << "test2" << endl;   
         Function crit_hinf_zb2("functions/Tzb2.txt" ) ; 
-    
+        cout << "test2" << endl;   
         coeffs.push_back(new Function("functions/Tstab_coefs.txt"));
-
+    cout << "test2" << endl;   
         const ExprNode& stab1 = (*coeffs[i])(x,p)[0];
         const ExprNode& stab2 = (*coeffs[i])(x,p)[1];
         const ExprNode& stab3 = (*coeffs[i])(x,p)[2];
@@ -99,12 +118,12 @@ void sm_2_barres() {
         const ExprNode& stab6 = (*coeffs[i])(x,p)[5];
 
         stabs.push_back(new Function(x,p,ibex::max(ibex::max(ibex::max(ibex::max(-stab6,-stab4),-stab2),ibex::pow(stab1,2)*ibex::pow(stab6,2) + ibex::pow(stab2,2)*ibex::pow(stab5,2) + stab1*ibex::pow(stab4,2)*stab5 + stab2*ibex::pow(stab3,2)*stab6 - 2*stab1*stab2*stab5*stab6 - stab1*stab3*stab4*stab6 - stab2*stab3*stab4*stab5),stab1*stab4 - stab2*stab3)));
-        Function f_max1(x,y,crit_hinf_zz1(x,y));
-        Function f_max2(x,y,crit_hinf_zz2(x,y));
-        Function f_max3(x,y,crit_hinf_zb1(x,y));
-        Function f_max4(x,y,crit_hinf_zb2(x,y));
+        Function fres1 = create_function(crit_hinf_zz1, x, y);
+        Function fres2 = create_function(crit_hinf_zz2, x, y);
+        Function fres3 = create_function(crit_hinf_zb1, x, y);
+        Function fres4 = create_function(crit_hinf_zb2, x, y);
             
-        goals.push_back(new Function(x,y,ibex::max(f_max1(x,y),(ibex::max(f_max2(x,y),ibex::max(f_max3(x,y),f_max4(x,y)))))));
+        goals.push_back(new Function(x,y,ibex::max(fres1(x,y),(ibex::max(fres2(x,y),ibex::max(fres3(x,y),fres4(x,y)))))));
 
         SystemFactory fac_x;
         fac_x.add_var(x,x_ini);
@@ -117,7 +136,7 @@ void sm_2_barres() {
         SystemFactory fac_fa_y_sys;
         fac_fa_y_sys.add_var(x,x_ini);
         fac_fa_y_sys.add_var(p,p_ini);
-        fac_fa_y_sys.add_goal(*stabs[i]);
+        fac_fa_y_sys.add_goal(*coeffs[i]);
 
         sys_x.push_back(     new NormalizedSystem(fac_x));       
         sys_xy.push_back(    new NormalizedSystem(fac_xy));       
@@ -128,7 +147,7 @@ void sm_2_barres() {
         fa_y_ctc.push_back(  new CtcIdentity(x_ini.size()+p_ini.size()));       
     }
 
-    double prec_fa_y = 1e-2;
+    double prec_fa_y = 1e-8;
 
     OptimMinMax oo(sys_x, sys_xy, fa_y_sys, x_ctc_id, xy_ctc, fa_y_ctc, x_prec, y_prec,stop_prec,prec_fa_y, num_thread);
     
@@ -150,7 +169,7 @@ void sm_2_barres() {
 
     oo.trace=1;
     oo.trace_freq = 10;
-    oo.timeout=6000;
+    oo.timeout=100;
     oo.eval_period  = 1;
     Optim::Status res = oo.optimize(x_ini);
 
