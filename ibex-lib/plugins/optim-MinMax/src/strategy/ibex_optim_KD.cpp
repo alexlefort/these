@@ -13,7 +13,7 @@ double CostFuncKD::cost(const Cell& elem) const {
 int ibex::KD_operator(IntervalVector& v) {
 
     bool res_k = kharitonov(v);
-    bool res_d = dabbene(v,100);
+    bool res_d = dabbene(v,200);
 
     if (res_k) return 0; // Completely stable
     if (res_d) {

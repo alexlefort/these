@@ -7,6 +7,24 @@
 using namespace std;
 using namespace ibex;
 
+
+Function create_function(Function& f, Variable& x, Variable& y) {
+    
+    Function fres(x,y,f(x,y,Interval(-3,-3)));
+    int n = 20;
+
+    std::vector<Function> fvect = std::vector<Function>();
+    fvect.push_back(Function(x,y,fres(x,y)));
+
+    for (int i = 1 ; i <n; i ++) {
+        double z = -3.0+0.2*i;
+        Function new_f(x,y,f(x,y,Interval(z,z)));
+        fvect.push_back(Function(x,y,ibex::max(fvect[i-1](x,y),new_f(x,y))));
+    }
+
+    return (fvect[n-1]);
+}
+
 void sm_2_barres() {
 
     Variable x(9);
@@ -82,13 +100,30 @@ void sm_2_barres() {
 
     for (int i = 0 ; i <num_thread ; i++) {
 
-        Function zz1("functions/Tzz1.txt" ) ;
-        Function zz2("functions/Tzz2.txt" ) ; 
-        Function zb1("functions/Tzb1.txt" ) ; 
-        Function zb2("functions/Tzb2.txt" ) ;  
+        Function crit_hinf_zz1("functions/Tzz1.txt" ) ;
+            cout << "test2" << endl;   
+        Function crit_hinf_zz2("functions/Tzz2.txt" ) ;
+            cout << "test2" << endl;   
+        Function crit_hinf_zb1("functions/Tzb1.txt" ) ;
+            cout << "test2" << endl;   
+        Function crit_hinf_zb2("functions/Tzb2.txt" ) ; 
+        cout << "test2" << endl;   
         coeffs.push_back(new Function("functions/Tstab_coefs.txt"));
+    cout << "test2" << endl;   
+        const ExprNode& stab1 = (*coeffs[i])(x,p)[0];
+        const ExprNode& stab2 = (*coeffs[i])(x,p)[1];
+        const ExprNode& stab3 = (*coeffs[i])(x,p)[2];
+        const ExprNode& stab4 = (*coeffs[i])(x,p)[3];
+        const ExprNode& stab5 = (*coeffs[i])(x,p)[4];
+        const ExprNode& stab6 = (*coeffs[i])(x,p)[5];
+
+        stabs.push_back(new Function(x,p,ibex::max(ibex::max(ibex::max(ibex::max(-stab6,-stab4),-stab2),ibex::pow(stab1,2)*ibex::pow(stab6,2) + ibex::pow(stab2,2)*ibex::pow(stab5,2) + stab1*ibex::pow(stab4,2)*stab5 + stab2*ibex::pow(stab3,2)*stab6 - 2*stab1*stab2*stab5*stab6 - stab1*stab3*stab4*stab6 - stab2*stab3*stab4*stab5),stab1*stab4 - stab2*stab3)));
+        Function fres1 = create_function(crit_hinf_zz1, x, y);
+        Function fres2 = create_function(crit_hinf_zz2, x, y);
+        Function fres3 = create_function(crit_hinf_zb1, x, y);
+        Function fres4 = create_function(crit_hinf_zb2, x, y);
             
-        goals.push_back(new Function(x,y,ibex::max(zz1(x,y),(ibex::max(zz2(x,y),ibex::max(zb1(x,y),zb2(x,y)))))));
+        goals.push_back(new Function(x,y,ibex::max(fres1(x,y),(ibex::max(fres2(x,y),ibex::max(fres3(x,y),fres4(x,y)))))));
 
         SystemFactory fac_x;
         fac_x.add_var(x,x_ini);
