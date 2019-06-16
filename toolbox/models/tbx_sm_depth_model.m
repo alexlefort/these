@@ -42,7 +42,7 @@ function model = tbx_sm_depth_model_one_plane(p)
     A = ZThetaPiQ*A*inv(ZThetaPiQ);
     B = ZThetaPiQ*B;
     
-	sys.a = simplify(A);
-	sys.b = simplify(B);
-	sys.c = sym(eye(4));
-	sys.d = sym(zeros(4,1));
+    sys.a = simplify(A);
+    sys.b = simplify(B);
+    sys.c = sym(eye(4));
+    sys.d = sym(zeros(4,1));
