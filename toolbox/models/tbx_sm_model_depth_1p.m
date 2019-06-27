@@ -1,4 +1,4 @@
-function model = tbx_sm_depth_model_one_plane(p)
+function model = tbx_sm_model_depth_1_p(p)
 
     Cz = [0 0 p.CzW/p.Vs p.CzQ*p.L/p.Vs p.CzB1 0];
     Cm = [0 0 p.CmW/p.Vs p.CmQ*p.L/p.Vs p.CmB1 0];
