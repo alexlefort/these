@@ -1,0 +1,3 @@
+ibex-lib/__build__/*
+ibex-lib/*.pyc
+ibex-lib/.waf*
