@@ -1,0 +1,370 @@
+# project ibex-lib (2.3.0) configured on Fri Jun 28 19:24:34 2019 by
+# waf 1.7.5 (abi 98, python 2070cf0 on linux2)
+# using ./waf configure --with-optim --with-optim-MinMax --with-affine
+#
+----------------------------------------
+Setting top to
+/home/alexandre/these/ibex-lib
+----------------------------------------
+Setting out to
+/home/alexandre/these/ibex-lib/__build__
+----------------------------------------
+Checking for 'g++' (c++ compiler)
+find program=['g++', 'c++'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/snap/bin'] var='CXX' -> '/usr/bin/g++'
+find program=['ar'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/snap/bin'] var='AR' -> '/usr/bin/ar'
+/usr/bin/g++
+----------------------------------------
+Checking for 'gcc' (c compiler)
+find program=['gcc', 'cc'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/snap/bin'] var='CC' -> '/usr/bin/gcc'
+(tool ar is already loaded, skipping)
+/usr/bin/gcc
+----------------------------------------
+Checking for program bison
+/usr/bin/bison
+find program=['bison'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/snap/bin'] var='BISON' -> '/usr/bin/bison'
+----------------------------------------
+Checking for program flex
+/usr/bin/flex
+find program=['flex'] paths=['/usr/local/sbin', '/usr/local/bin', '/usr/sbin', '/usr/bin', '/sbin', '/bin', '/snap/bin'] var='FLEX' -> '/usr/bin/flex'
+----------------------------------------
+Checking for compiler flags -O3
+==>
+
+int main(int argc, char **argv) {
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: __build__/.conf_check_02446fa4d3109ab3543a477080a1fda6/test.cpp -> __build__/.conf_check_02446fa4d3109ab3543a477080a1fda6/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-DNDEBUG=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: __build__/.conf_check_02446fa4d3109ab3543a477080a1fda6/testbuild/test.cpp.1.o -> __build__/.conf_check_02446fa4d3109ab3543a477080a1fda6/testbuild/testprog
+[0m
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/alexandre/these/ibex-lib/__build__/.conf_check_02446fa4d3109ab3543a477080a1fda6/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+----------------------------------------
+Checking for compiler flags -fopenmp
+==>
+
+int main(int argc, char **argv) {
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: __build__/.conf_check_47cd26cbab28acf11aa8c99a83612514/test.cpp -> __build__/.conf_check_47cd26cbab28acf11aa8c99a83612514/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-DNDEBUG=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: __build__/.conf_check_47cd26cbab28acf11aa8c99a83612514/testbuild/test.cpp.1.o -> __build__/.conf_check_47cd26cbab28acf11aa8c99a83612514/testbuild/testprog
+[0m
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/alexandre/these/ibex-lib/__build__/.conf_check_47cd26cbab28acf11aa8c99a83612514/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+-------------------------------------------
+Checking for compiler flags -frounding-math
+==>
+
+int main(int argc, char **argv) {
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: __build__/.conf_check_26ed1cf2643c55c7fc1bb158e88022ff/test.cpp -> __build__/.conf_check_26ed1cf2643c55c7fc1bb158e88022ff/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-DNDEBUG=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: __build__/.conf_check_26ed1cf2643c55c7fc1bb158e88022ff/testbuild/test.cpp.1.o -> __build__/.conf_check_26ed1cf2643c55c7fc1bb158e88022ff/testbuild/testprog
+[0m
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/alexandre/these/ibex-lib/__build__/.conf_check_26ed1cf2643c55c7fc1bb158e88022ff/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+-------------------------------------------
+Checking for compiler flags -std=c++11
+==>
+
+int main(int argc, char **argv) {
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: __build__/.conf_check_80381fe5fd8a6b26ba973eff4cb2e5aa/test.cpp -> __build__/.conf_check_80381fe5fd8a6b26ba973eff4cb2e5aa/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-DNDEBUG=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: __build__/.conf_check_80381fe5fd8a6b26ba973eff4cb2e5aa/testbuild/test.cpp.1.o -> __build__/.conf_check_80381fe5fd8a6b26ba973eff4cb2e5aa/testbuild/testprog
+[0m
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/alexandre/these/ibex-lib/__build__/.conf_check_80381fe5fd8a6b26ba973eff4cb2e5aa/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+------------------------------------------------
+Checking for compiler flags -I/home/lefort/Eigen
+==>
+
+int main(int argc, char **argv) {
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: __build__/.conf_check_7225754aa0c4d50bfa8cea73e74a665a/test.cpp -> __build__/.conf_check_7225754aa0c4d50bfa8cea73e74a665a/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-DNDEBUG=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: __build__/.conf_check_7225754aa0c4d50bfa8cea73e74a665a/testbuild/test.cpp.1.o -> __build__/.conf_check_7225754aa0c4d50bfa8cea73e74a665a/testbuild/testprog
+[0m
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/alexandre/these/ibex-lib/__build__/.conf_check_7225754aa0c4d50bfa8cea73e74a665a/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+-------------------------------------------------------------
+Checking for compiler flags -I/home/lefort/libigl/include/igl
+==>
+
+int main(int argc, char **argv) {
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: __build__/.conf_check_781f17f646404cf7d126012474054015/test.cpp -> __build__/.conf_check_781f17f646404cf7d126012474054015/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-DNDEBUG=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: __build__/.conf_check_781f17f646404cf7d126012474054015/testbuild/test.cpp.1.o -> __build__/.conf_check_781f17f646404cf7d126012474054015/testbuild/testprog
+[0m
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/alexandre/these/ibex-lib/__build__/.conf_check_781f17f646404cf7d126012474054015/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic']
+yes
+-------------------------------------------------------------
+Checking for header interval/interval.hpp
+==>
+#include <interval/interval.hpp>
+
+int main(int argc, char **argv) {
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: __build__/.conf_check_ce2f2a603c9367988a45c2f7f9b4567a/test.cpp -> __build__/.conf_check_ce2f2a603c9367988a45c2f7f9b4567a/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-DNDEBUG=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: __build__/.conf_check_ce2f2a603c9367988a45c2f7f9b4567a/testbuild/test.cpp.1.o -> __build__/.conf_check_ce2f2a603c9367988a45c2f7f9b4567a/testbuild/testprog
+[0m
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/alexandre/these/ibex-lib/__build__/.conf_check_ce2f2a603c9367988a45c2f7f9b4567a/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-L3rd', '-Lsrc']
+yes
+-------------------------------------------------------------
+Checking for library ['prim']
+==>
+
+int main(int argc, char **argv) {
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: __build__/.conf_check_462953aedb7bda783e494bd878c8c944/test.cpp -> __build__/.conf_check_462953aedb7bda783e494bd878c8c944/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: __build__/.conf_check_462953aedb7bda783e494bd878c8c944/testbuild/test.cpp.1.o -> __build__/.conf_check_462953aedb7bda783e494bd878c8c944/testbuild/testprog
+[0m
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/alexandre/these/ibex-lib/__build__/.conf_check_462953aedb7bda783e494bd878c8c944/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-L3rd', '-Lsrc', '-lprim']
+yes
+-------------------------------------------------------------
+Checking for header soplex.h
+==>
+#include <soplex.h>
+
+int main(int argc, char **argv) {
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: __build__/.conf_check_16a921ca5b486f329fcf7003ed95ec2a/test.cpp -> __build__/.conf_check_16a921ca5b486f329fcf7003ed95ec2a/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-I/home/alexandre/these/ibex-lib/src/arithmetic', '-I/home/alexandre/these/ibex-lib/src/bisector', '-I/home/alexandre/these/ibex-lib/src/combinatorial', '-I/home/alexandre/these/ibex-lib/src/contractor', '-I/home/alexandre/these/ibex-lib/src/function', '-I/home/alexandre/these/ibex-lib/src/numeric', '-I/home/alexandre/these/ibex-lib/src/geometry', '-I/home/alexandre/these/ibex-lib/src/parser', '-I/home/alexandre/these/ibex-lib/src/set', '-I/home/alexandre/these/ibex-lib/src/strategy', '-I/home/alexandre/these/ibex-lib/src/symbolic', '-I/home/alexandre/these/ibex-lib/src/system', '-I/home/alexandre/these/ibex-lib/src/tools', '-I/home/alexandre/these/ibex-lib/src/predicate', '-I/home/alexandre/these/ibex-lib/src/integrate', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/strategy', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/strategy', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+err: ../test.cpp:1:20: fatal error: soplex.h: Aucun fichier ou dossier de ce type
+compilation terminated.
+
+from /home/alexandre/these/ibex-lib/plugins/optim: Test does not build: Traceback (most recent call last):
+  File "/home/alexandre/these/ibex-lib/.waf-1.7.5-f6a5ffc696be5d2549129d9fd105b5a3/waflib/Tools/c_config.py", line 451, in run_c_code
+    bld.compile()
+  File "/home/alexandre/these/ibex-lib/.waf-1.7.5-f6a5ffc696be5d2549129d9fd105b5a3/waflib/Build.py", line 198, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 140572063179088: cxx test.cpp -> test.cpp.1.o}
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-I/home/alexandre/these/ibex-lib/src/arithmetic', '-I/home/alexandre/these/ibex-lib/src/bisector', '-I/home/alexandre/these/ibex-lib/src/combinatorial', '-I/home/alexandre/these/ibex-lib/src/contractor', '-I/home/alexandre/these/ibex-lib/src/function', '-I/home/alexandre/these/ibex-lib/src/numeric', '-I/home/alexandre/these/ibex-lib/src/geometry', '-I/home/alexandre/these/ibex-lib/src/parser', '-I/home/alexandre/these/ibex-lib/src/set', '-I/home/alexandre/these/ibex-lib/src/strategy', '-I/home/alexandre/these/ibex-lib/src/symbolic', '-I/home/alexandre/these/ibex-lib/src/system', '-I/home/alexandre/these/ibex-lib/src/tools', '-I/home/alexandre/these/ibex-lib/src/predicate', '-I/home/alexandre/these/ibex-lib/src/integrate', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/strategy', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/strategy', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+
+not found
+from /home/alexandre/these/ibex-lib/plugins/optim: The configuration failed
+-------------------------------------------------------------
+Checking for library soplex
+==>
+
+							#include <soplex.h>
+							int main (int argc, char* argv[]) {
+								soplex::SPxLP lp;
+								lp.read(std::cin);
+								return 0;
+							}
+						
+<==
+[1/2] [32mcxx: __build__/.conf_check_74f738e22d157de2e60477d5c66a6b94/test.cpp -> __build__/.conf_check_74f738e22d157de2e60477d5c66a6b94/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-I/home/alexandre/these/ibex-lib/src/arithmetic', '-I/home/alexandre/these/ibex-lib/src/bisector', '-I/home/alexandre/these/ibex-lib/src/combinatorial', '-I/home/alexandre/these/ibex-lib/src/contractor', '-I/home/alexandre/these/ibex-lib/src/function', '-I/home/alexandre/these/ibex-lib/src/numeric', '-I/home/alexandre/these/ibex-lib/src/geometry', '-I/home/alexandre/these/ibex-lib/src/parser', '-I/home/alexandre/these/ibex-lib/src/set', '-I/home/alexandre/these/ibex-lib/src/strategy', '-I/home/alexandre/these/ibex-lib/src/symbolic', '-I/home/alexandre/these/ibex-lib/src/system', '-I/home/alexandre/these/ibex-lib/src/tools', '-I/home/alexandre/these/ibex-lib/src/predicate', '-I/home/alexandre/these/ibex-lib/src/integrate', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/strategy', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/strategy', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+err: ../test.cpp:2:27: fatal error: soplex.h: Aucun fichier ou dossier de ce type
+compilation terminated.
+
+from /home/alexandre/these/ibex-lib/plugins/optim: Test does not build: Traceback (most recent call last):
+  File "/home/alexandre/these/ibex-lib/.waf-1.7.5-f6a5ffc696be5d2549129d9fd105b5a3/waflib/Tools/c_config.py", line 451, in run_c_code
+    bld.compile()
+  File "/home/alexandre/these/ibex-lib/.waf-1.7.5-f6a5ffc696be5d2549129d9fd105b5a3/waflib/Build.py", line 198, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 140572063627216: cxx test.cpp -> test.cpp.1.o}
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-I/home/alexandre/these/ibex-lib/src/arithmetic', '-I/home/alexandre/these/ibex-lib/src/bisector', '-I/home/alexandre/these/ibex-lib/src/combinatorial', '-I/home/alexandre/these/ibex-lib/src/contractor', '-I/home/alexandre/these/ibex-lib/src/function', '-I/home/alexandre/these/ibex-lib/src/numeric', '-I/home/alexandre/these/ibex-lib/src/geometry', '-I/home/alexandre/these/ibex-lib/src/parser', '-I/home/alexandre/these/ibex-lib/src/set', '-I/home/alexandre/these/ibex-lib/src/strategy', '-I/home/alexandre/these/ibex-lib/src/symbolic', '-I/home/alexandre/these/ibex-lib/src/system', '-I/home/alexandre/these/ibex-lib/src/tools', '-I/home/alexandre/these/ibex-lib/src/predicate', '-I/home/alexandre/these/ibex-lib/src/integrate', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/strategy', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/strategy', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+
+no
+from /home/alexandre/these/ibex-lib/plugins/optim: The configuration failed
+-------------------------------------------------------------
+Checking for library ['soplex', 'z']
+==>
+
+							#include <soplex.h>
+							int main (int argc, char* argv[]) {
+								soplex::SPxLP lp;
+								lp.read(std::cin);
+								return 0;
+							}
+						
+<==
+[1/2] [32mcxx: __build__/.conf_check_4ad18a13dfac839f856bd3c1f88b6281/test.cpp -> __build__/.conf_check_4ad18a13dfac839f856bd3c1f88b6281/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-I/home/alexandre/these/ibex-lib/src/arithmetic', '-I/home/alexandre/these/ibex-lib/src/bisector', '-I/home/alexandre/these/ibex-lib/src/combinatorial', '-I/home/alexandre/these/ibex-lib/src/contractor', '-I/home/alexandre/these/ibex-lib/src/function', '-I/home/alexandre/these/ibex-lib/src/numeric', '-I/home/alexandre/these/ibex-lib/src/geometry', '-I/home/alexandre/these/ibex-lib/src/parser', '-I/home/alexandre/these/ibex-lib/src/set', '-I/home/alexandre/these/ibex-lib/src/strategy', '-I/home/alexandre/these/ibex-lib/src/symbolic', '-I/home/alexandre/these/ibex-lib/src/system', '-I/home/alexandre/these/ibex-lib/src/tools', '-I/home/alexandre/these/ibex-lib/src/predicate', '-I/home/alexandre/these/ibex-lib/src/integrate', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/strategy', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/strategy', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+err: ../test.cpp:2:27: fatal error: soplex.h: Aucun fichier ou dossier de ce type
+compilation terminated.
+
+from /home/alexandre/these/ibex-lib/plugins/optim: Test does not build: Traceback (most recent call last):
+  File "/home/alexandre/these/ibex-lib/.waf-1.7.5-f6a5ffc696be5d2549129d9fd105b5a3/waflib/Tools/c_config.py", line 451, in run_c_code
+    bld.compile()
+  File "/home/alexandre/these/ibex-lib/.waf-1.7.5-f6a5ffc696be5d2549129d9fd105b5a3/waflib/Build.py", line 198, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 140572063628240: cxx test.cpp -> test.cpp.1.o}
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-I/home/alexandre/these/ibex-lib/src/arithmetic', '-I/home/alexandre/these/ibex-lib/src/bisector', '-I/home/alexandre/these/ibex-lib/src/combinatorial', '-I/home/alexandre/these/ibex-lib/src/contractor', '-I/home/alexandre/these/ibex-lib/src/function', '-I/home/alexandre/these/ibex-lib/src/numeric', '-I/home/alexandre/these/ibex-lib/src/geometry', '-I/home/alexandre/these/ibex-lib/src/parser', '-I/home/alexandre/these/ibex-lib/src/set', '-I/home/alexandre/these/ibex-lib/src/strategy', '-I/home/alexandre/these/ibex-lib/src/symbolic', '-I/home/alexandre/these/ibex-lib/src/system', '-I/home/alexandre/these/ibex-lib/src/tools', '-I/home/alexandre/these/ibex-lib/src/predicate', '-I/home/alexandre/these/ibex-lib/src/integrate', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/strategy', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/strategy', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+
+no
+from /home/alexandre/these/ibex-lib/plugins/optim: The configuration failed
+-------------------------------------------------------------
+Checking for header ilcplex/cplex.h
+==>
+#include <ilcplex/cplex.h>
+
+int main(int argc, char **argv) {
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: __build__/.conf_check_66c16d97957b4c0a6db6a43bad44dea3/test.cpp -> __build__/.conf_check_66c16d97957b4c0a6db6a43bad44dea3/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-I/home/alexandre/these/ibex-lib/src/arithmetic', '-I/home/alexandre/these/ibex-lib/src/bisector', '-I/home/alexandre/these/ibex-lib/src/combinatorial', '-I/home/alexandre/these/ibex-lib/src/contractor', '-I/home/alexandre/these/ibex-lib/src/function', '-I/home/alexandre/these/ibex-lib/src/numeric', '-I/home/alexandre/these/ibex-lib/src/geometry', '-I/home/alexandre/these/ibex-lib/src/parser', '-I/home/alexandre/these/ibex-lib/src/set', '-I/home/alexandre/these/ibex-lib/src/strategy', '-I/home/alexandre/these/ibex-lib/src/symbolic', '-I/home/alexandre/these/ibex-lib/src/system', '-I/home/alexandre/these/ibex-lib/src/tools', '-I/home/alexandre/these/ibex-lib/src/predicate', '-I/home/alexandre/these/ibex-lib/src/integrate', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/strategy', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/strategy', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+err: ../test.cpp:1:27: fatal error: ilcplex/cplex.h: Aucun fichier ou dossier de ce type
+compilation terminated.
+
+from /home/alexandre/these/ibex-lib/plugins/optim: Test does not build: Traceback (most recent call last):
+  File "/home/alexandre/these/ibex-lib/.waf-1.7.5-f6a5ffc696be5d2549129d9fd105b5a3/waflib/Tools/c_config.py", line 451, in run_c_code
+    bld.compile()
+  File "/home/alexandre/these/ibex-lib/.waf-1.7.5-f6a5ffc696be5d2549129d9fd105b5a3/waflib/Build.py", line 198, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 140572063735888: cxx test.cpp -> test.cpp.1.o}
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-I/home/alexandre/these/ibex-lib/src/arithmetic', '-I/home/alexandre/these/ibex-lib/src/bisector', '-I/home/alexandre/these/ibex-lib/src/combinatorial', '-I/home/alexandre/these/ibex-lib/src/contractor', '-I/home/alexandre/these/ibex-lib/src/function', '-I/home/alexandre/these/ibex-lib/src/numeric', '-I/home/alexandre/these/ibex-lib/src/geometry', '-I/home/alexandre/these/ibex-lib/src/parser', '-I/home/alexandre/these/ibex-lib/src/set', '-I/home/alexandre/these/ibex-lib/src/strategy', '-I/home/alexandre/these/ibex-lib/src/symbolic', '-I/home/alexandre/these/ibex-lib/src/system', '-I/home/alexandre/these/ibex-lib/src/tools', '-I/home/alexandre/these/ibex-lib/src/predicate', '-I/home/alexandre/these/ibex-lib/src/integrate', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/strategy', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/strategy', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+
+not found
+from /home/alexandre/these/ibex-lib/plugins/optim: The configuration failed
+-------------------------------------------------------------
+Checking for library ['cplex', 'pthread']
+==>
+
+								#include "ilcplex/cplex.h"
+								int main (int argc, char* argv[]) {
+									CPXENVptr  envcplex;
+									CPXLPptr lpcplex;
+									return 0;
+								}
+							
+<==
+[1/2] [32mcxx: __build__/.conf_check_fd0c6bded51b89f8a1cf1614b1f72e6a/test.cpp -> __build__/.conf_check_fd0c6bded51b89f8a1cf1614b1f72e6a/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-I/home/alexandre/these/ibex-lib/src/arithmetic', '-I/home/alexandre/these/ibex-lib/src/bisector', '-I/home/alexandre/these/ibex-lib/src/combinatorial', '-I/home/alexandre/these/ibex-lib/src/contractor', '-I/home/alexandre/these/ibex-lib/src/function', '-I/home/alexandre/these/ibex-lib/src/numeric', '-I/home/alexandre/these/ibex-lib/src/geometry', '-I/home/alexandre/these/ibex-lib/src/parser', '-I/home/alexandre/these/ibex-lib/src/set', '-I/home/alexandre/these/ibex-lib/src/strategy', '-I/home/alexandre/these/ibex-lib/src/symbolic', '-I/home/alexandre/these/ibex-lib/src/system', '-I/home/alexandre/these/ibex-lib/src/tools', '-I/home/alexandre/these/ibex-lib/src/predicate', '-I/home/alexandre/these/ibex-lib/src/integrate', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/strategy', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/strategy', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+err: ../test.cpp:2:35: fatal error: ilcplex/cplex.h: Aucun fichier ou dossier de ce type
+compilation terminated.
+
+from /home/alexandre/these/ibex-lib/plugins/optim: Test does not build: Traceback (most recent call last):
+  File "/home/alexandre/these/ibex-lib/.waf-1.7.5-f6a5ffc696be5d2549129d9fd105b5a3/waflib/Tools/c_config.py", line 451, in run_c_code
+    bld.compile()
+  File "/home/alexandre/these/ibex-lib/.waf-1.7.5-f6a5ffc696be5d2549129d9fd105b5a3/waflib/Build.py", line 198, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 140572063140048: cxx test.cpp -> test.cpp.1.o}
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-I/home/alexandre/these/ibex-lib/src/arithmetic', '-I/home/alexandre/these/ibex-lib/src/bisector', '-I/home/alexandre/these/ibex-lib/src/combinatorial', '-I/home/alexandre/these/ibex-lib/src/contractor', '-I/home/alexandre/these/ibex-lib/src/function', '-I/home/alexandre/these/ibex-lib/src/numeric', '-I/home/alexandre/these/ibex-lib/src/geometry', '-I/home/alexandre/these/ibex-lib/src/parser', '-I/home/alexandre/these/ibex-lib/src/set', '-I/home/alexandre/these/ibex-lib/src/strategy', '-I/home/alexandre/these/ibex-lib/src/symbolic', '-I/home/alexandre/these/ibex-lib/src/system', '-I/home/alexandre/these/ibex-lib/src/tools', '-I/home/alexandre/these/ibex-lib/src/predicate', '-I/home/alexandre/these/ibex-lib/src/integrate', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/strategy', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/strategy', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+
+no
+from /home/alexandre/these/ibex-lib/plugins/optim: The configuration failed
+-------------------------------------------------------------
+Checking for header coin/ClpSimplex.hpp
+==>
+#include <coin/ClpSimplex.hpp>
+
+int main(int argc, char **argv) {
+	return 0;
+}
+
+<==
+[1/2] [32mcxx: __build__/.conf_check_d5f4b6580e64ff4211805d35770a9378/test.cpp -> __build__/.conf_check_d5f4b6580e64ff4211805d35770a9378/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-I/home/alexandre/these/ibex-lib/src/arithmetic', '-I/home/alexandre/these/ibex-lib/src/bisector', '-I/home/alexandre/these/ibex-lib/src/combinatorial', '-I/home/alexandre/these/ibex-lib/src/contractor', '-I/home/alexandre/these/ibex-lib/src/function', '-I/home/alexandre/these/ibex-lib/src/numeric', '-I/home/alexandre/these/ibex-lib/src/geometry', '-I/home/alexandre/these/ibex-lib/src/parser', '-I/home/alexandre/these/ibex-lib/src/set', '-I/home/alexandre/these/ibex-lib/src/strategy', '-I/home/alexandre/these/ibex-lib/src/symbolic', '-I/home/alexandre/these/ibex-lib/src/system', '-I/home/alexandre/these/ibex-lib/src/tools', '-I/home/alexandre/these/ibex-lib/src/predicate', '-I/home/alexandre/these/ibex-lib/src/integrate', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/strategy', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/strategy', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: __build__/.conf_check_d5f4b6580e64ff4211805d35770a9378/testbuild/test.cpp.1.o -> __build__/.conf_check_d5f4b6580e64ff4211805d35770a9378/testbuild/testprog
+[0m
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/alexandre/these/ibex-lib/__build__/.conf_check_d5f4b6580e64ff4211805d35770a9378/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-L3rd', '-Lsrc']
+yes
+-------------------------------------------------------------
+Checking for library ['Clp', 'CoinUtils', 'z', 'm']
+==>
+
+							#include "coin/ClpSimplex.hpp"
+							int main (int argc, char* argv[]) {
+								ClpSimplex 	myclp;
+								myclp.resize(2,2);
+								return 0;
+							} 
+<==
+[1/2] [32mcxx: __build__/.conf_check_926dbe1074150d19a0fd2a74c938f232/test.cpp -> __build__/.conf_check_926dbe1074150d19a0fd2a74c938f232/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-I/home/alexandre/these/ibex-lib/src/arithmetic', '-I/home/alexandre/these/ibex-lib/src/bisector', '-I/home/alexandre/these/ibex-lib/src/combinatorial', '-I/home/alexandre/these/ibex-lib/src/contractor', '-I/home/alexandre/these/ibex-lib/src/function', '-I/home/alexandre/these/ibex-lib/src/numeric', '-I/home/alexandre/these/ibex-lib/src/geometry', '-I/home/alexandre/these/ibex-lib/src/parser', '-I/home/alexandre/these/ibex-lib/src/set', '-I/home/alexandre/these/ibex-lib/src/strategy', '-I/home/alexandre/these/ibex-lib/src/symbolic', '-I/home/alexandre/these/ibex-lib/src/system', '-I/home/alexandre/these/ibex-lib/src/tools', '-I/home/alexandre/these/ibex-lib/src/predicate', '-I/home/alexandre/these/ibex-lib/src/integrate', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/strategy', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/strategy', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '-DHAVE_COIN_CLPSIMPLEX_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: __build__/.conf_check_926dbe1074150d19a0fd2a74c938f232/testbuild/test.cpp.1.o -> __build__/.conf_check_926dbe1074150d19a0fd2a74c938f232/testbuild/testprog
+[0m
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/alexandre/these/ibex-lib/__build__/.conf_check_926dbe1074150d19a0fd2a74c938f232/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-L3rd', '-Lsrc', '-lClp', '-lCoinUtils', '-lz', '-lm']
+err: /usr/bin/ld : ne peut trouver -lz
+collect2: error: ld returned 1 exit status
+
+from /home/alexandre/these/ibex-lib/plugins/optim: Test does not build: Traceback (most recent call last):
+  File "/home/alexandre/these/ibex-lib/.waf-1.7.5-f6a5ffc696be5d2549129d9fd105b5a3/waflib/Tools/c_config.py", line 451, in run_c_code
+    bld.compile()
+  File "/home/alexandre/these/ibex-lib/.waf-1.7.5-f6a5ffc696be5d2549129d9fd105b5a3/waflib/Build.py", line 198, in compile
+    raise Errors.BuildError(self.producer.error)
+BuildError: Build failed
+ -> task in 'testprog' failed (exit status 1): 
+	{task 140572064020496: cxxprogram test.cpp.1.o -> testprog}
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/alexandre/these/ibex-lib/__build__/.conf_check_926dbe1074150d19a0fd2a74c938f232/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-L3rd', '-Lsrc', '-lClp', '-lCoinUtils', '-lz', '-lm']
+
+no
+from /home/alexandre/these/ibex-lib/plugins/optim: The configuration failed
+-------------------------------------------------------------
+Checking for library ['Clp', 'CoinUtils', 'm']
+==>
+
+								#include "coin/ClpSimplex.hpp"
+								int main (int argc, char* argv[]) {
+									ClpSimplex 	myclp;
+									myclp.resize(2,2);
+									return 0;
+								} 
+<==
+[1/2] [32mcxx: __build__/.conf_check_06e6fd1be8ca546353feb81bbf1e3b97/test.cpp -> __build__/.conf_check_06e6fd1be8ca546353feb81bbf1e3b97/testbuild/test.cpp.1.o
+[0m
+['/usr/bin/g++', '-O3', '-fopenmp', '-frounding-math', '-std=c++11', '-I/home/lefort/Eigen', '-I/home/lefort/libigl/include/igl', '-I/home/alexandre/these/ibex-lib/src/arithmetic', '-I/home/alexandre/these/ibex-lib/src/bisector', '-I/home/alexandre/these/ibex-lib/src/combinatorial', '-I/home/alexandre/these/ibex-lib/src/contractor', '-I/home/alexandre/these/ibex-lib/src/function', '-I/home/alexandre/these/ibex-lib/src/numeric', '-I/home/alexandre/these/ibex-lib/src/geometry', '-I/home/alexandre/these/ibex-lib/src/parser', '-I/home/alexandre/these/ibex-lib/src/set', '-I/home/alexandre/these/ibex-lib/src/strategy', '-I/home/alexandre/these/ibex-lib/src/symbolic', '-I/home/alexandre/these/ibex-lib/src/system', '-I/home/alexandre/these/ibex-lib/src/tools', '-I/home/alexandre/these/ibex-lib/src/predicate', '-I/home/alexandre/these/ibex-lib/src/integrate', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/arithmetic', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/function', '-I/home/alexandre/these/ibex-lib/__build__/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/affine/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/bisector', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/contractor', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/numeric', '-I/home/alexandre/these/ibex-lib/__build__/plugins/optim/src/strategy', '-I/home/alexandre/these/ibex-lib/plugins/optim/src/strategy', '-DNDEBUG=1', '-DHAVE_INTERVAL_INTERVAL_HPP=1', '-DHAVE_COIN_CLPSIMPLEX_HPP=1', '../test.cpp', '-c', '-o', 'test.cpp.1.o']
+[2/2] [33mcxxprogram: __build__/.conf_check_06e6fd1be8ca546353feb81bbf1e3b97/testbuild/test.cpp.1.o -> __build__/.conf_check_06e6fd1be8ca546353feb81bbf1e3b97/testbuild/testprog
+[0m
+['/usr/bin/g++', 'test.cpp.1.o', '-o', '/home/alexandre/these/ibex-lib/__build__/.conf_check_06e6fd1be8ca546353feb81bbf1e3b97/testbuild/testprog', '-Wl,-Bstatic', '-Wl,-Bdynamic', '-L3rd', '-Lsrc', '-lClp', '-lCoinUtils', '-lm']
+yes
