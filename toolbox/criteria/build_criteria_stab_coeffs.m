@@ -9,5 +9,5 @@ function criteria_coefs = build_criteria_stab_coeffs(den)
     criteria_coefs = {};
 
     for ii = 1:length(den_coeff)
-        criteria_coefs{ii} = den_coeff(ii);
+        criteria_coefs{ii} = symtbx_horner(den_coeff(ii),'nodegree');
     end

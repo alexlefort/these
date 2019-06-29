@@ -8,5 +8,5 @@ function deg = symtbx_degmax(p)
 
     deg = 0;
     for ii = 1:n
-        deg = max(deg, symtbx_poly_degree(p,symbols(ii)));
+        deg = max(deg, symtbx_get_sympoly_degree(p,symbols(ii)));
     end

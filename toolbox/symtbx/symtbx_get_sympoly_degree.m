@@ -1,8 +1,9 @@
-function d = symtbx_get_sympoly_degree(poly)
+function d = symtbx_get_sympoly_degree(poly,s)
 
     %% Give degree of a polynomial expression
-    
-    syms s;
+    if (nargin < 2)
+       syms s;
+    end
 
     [coefs,orders] = coeffs(poly,s);
     syms aux;
